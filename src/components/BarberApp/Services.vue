@@ -60,7 +60,7 @@ export default {
 </script>
 <style lang="scss" scoped>
     .welcome {
-        height: 30vh;
+        height: 23vh;
     }
     .service-layout {
         margin: auto;
@@ -106,5 +106,8 @@ export default {
     .products {
         overflow: scroll;
         height: calc(100% - 104px);
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 </style>

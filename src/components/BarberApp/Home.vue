@@ -122,7 +122,6 @@
         width: 300px;
         display: block;
         margin: auto;
-        margin-top: 10%;
     }
     .social-button {
         display: flex;

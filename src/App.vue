@@ -3,17 +3,19 @@
     import Services from '@/components/BarberApp/Services.vue'
     import Tester from '@/components/BarberApp/Tester.vue'
     import Summary from '@/components/BarberApp/Summary.vue'
+    import Navigation from '@/components/BarberApp/Navigation.vue'
 </script>
 
 <template>
-    <Home class="spacer"/>
-    <Services/>
-    <Summary/>
+    <Navigation/>
+    <Home/>
 </template>
 
 <style lang="scss" scoped>
-    .spacer {
-        padding-bottom: 230px;
+    .app {
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 </style>
 

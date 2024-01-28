@@ -6,15 +6,7 @@ html {
     box-sizing: border-box;
 }
 body {
-    background-color: #525252;
+    background-color: #333;
     font-family: "Montserrat", sans-serif;
-    &::-webkit-scrollbar {
-        width: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: #141C27;
-        border-radius: 5px;
-        width: 30px;
-    }
 }
 

@@ -23,11 +23,12 @@ export default defineConfig({
           skipWaiting: true
         },
         manifest: {
-        name: "HackerWeb",
-        short_name: "HackerWeb",
+        name: "BarberBolt",
+        short_name: "BarberBolt",
         start_url: ".",
         display: "standalone",
-        description: "A readable Hacker News app.",
+        description: "Save your next barber visitation",
+        theme_color: "#333",
         icons: [
           {
             src: "./src/assets/img/barberbolt512x512.png",

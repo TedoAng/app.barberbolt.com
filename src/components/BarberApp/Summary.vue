@@ -1,7 +1,7 @@
 <template>
     <div class="summary-layout">
         <div class="date">
-            <h5 class="px-2">Резервация</h5>
+            <h5 class="px-2 mb-3">Резервация</h5>
             <h4 class="px-2">Избери дата:</h4>
             <div class="days rounded p-3 m-2">
                 <div class="day"></div>
@@ -66,27 +66,33 @@
         <div class="summary">
             <h5 class="px-2">Обобщение</h5>
             <div class="row m-3">
-                <div class="col-5 orange rounded-start">
-                    <p>Wed</p>
-                    <p>21</p>
-                    <hr>
-                    <p>11:00</p>
-                    <button>OK</button>
+                <div class="col-5 orange rounded-start p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <p>Wed</p>
+                        <p>21</p>
+                        <hr>
+                        <p>11:00</p>
+                    </div>
+                    <div>
+                        <button>OK</button>
+                    </div>
                 </div>
                 <div class="col-7 carta rounded-end">
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
-                    <p>order</p>
+                    <div class="order-preview">
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                        <p>order</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,12 +109,14 @@ export default {
         max-width: 991px;
         color: #FFF6E5;
     }
-    .date,
-    .time {
+    .date {
         height: 25vh;
     }
+    .time {
+        height: 20vh;
+    }
     .summary {
-        height: 50vh;
+        height: 48vh;
         .row {
             height: calc(100% - 80px);
         }
@@ -117,6 +125,9 @@ export default {
         background-color: #F3E0B8;
         overflow-x: scroll;
         white-space: nowrap;
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
     .day {
         width: 50px;
@@ -139,15 +150,39 @@ export default {
     .times {
         overflow-x: scroll;
         white-space: nowrap;
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
     .orange {
         background-color: #E08D41;
         height: 100%;
+        button {
+            background-color: #525252;
+            padding: 10px 30px;
+            color: #FFF6E5;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            &:hover {
+                filter: brightness(80%);
+                transform: scale(1.03);
+            }
+        }
     }
     .carta {
         background-color: #F3E0B8;
         height: 100%;
         color: #525252;
-        overflow-y: scroll;
+        overflow-y: hidden;
+        padding: 20px;
+        .order-preview {
+            height: 100%;
+            overflow: scroll;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
     }
 </style>
