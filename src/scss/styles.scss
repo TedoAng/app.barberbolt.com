@@ -1,0 +1,20 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+* ,
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: #525252;
+    font-family: "Montserrat", sans-serif;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #141C27;
+        border-radius: 5px;
+        width: 30px;
+    }
+}
+
