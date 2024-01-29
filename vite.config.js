@@ -31,7 +31,7 @@ export default defineConfig({
         theme_color: "#333",
         icons: [
           {
-            src: "./src/assets/img/barberbolt512x512.png",
+            src: "./assets/barberbolt512x512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable"

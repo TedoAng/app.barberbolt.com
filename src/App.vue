@@ -1,14 +1,12 @@
 <script setup>
-    import Home from '@/components/BarberApp/Home.vue'
-    import Services from '@/components/BarberApp/Services.vue'
-    import Tester from '@/components/BarberApp/Tester.vue'
-    import Summary from '@/components/BarberApp/Summary.vue'
     import Navigation from '@/components/BarberApp/Navigation.vue'
+    import DevNavigation from '@/components/DevNavigation.vue'
 </script>
 
 <template>
     <Navigation/>
-    <Home/>
+    <router-view></router-view>
+    <DevNavigation/>
 </template>
 
 <style lang="scss" scoped>
