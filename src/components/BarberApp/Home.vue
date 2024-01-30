@@ -1,15 +1,8 @@
 <script setup>
     import Logo from '@/assets/BarberBoltLogo.svg';
-    import GoogleLogo from '@/assets/google_logo.svg';
     import {ref, onMounted} from 'vue'
     
     const reserve = ref(true);
-
-    
-
-    onMounted(()=>{
-        
-    })
 
 </script>
 
@@ -20,13 +13,13 @@
         <h1 class="text-center">Bolt</h1>
         <div class="position-relative">
             <transition name="out">
-                <div v-if="!reserve" class="my-5 position-absolute top-50 start-50 translate-middle-x">
+                <div v-if="reserve" class="my-5 position-absolute top-50 start-50 translate-middle-x">
                     <h4 class="text-center">best style</h4>
                     <button class="reserve my-4" @click="reserve = !reserve">РЕЗЕРВИРАЙ</button>
                 </div>
             </transition>
             <transition name="in">
-                <div v-if="reserve" class="my-5 position-absolute top-50 start-50 translate-middle-x">
+                <div v-if="!reserve" class="my-5 position-absolute top-50 start-50 translate-middle-x">
                     <a href="/auth/facebook" class="text-decoration-none d-none">
                         <button class="rounded social-button mx-auto position-relative my-3 fb-btn">
                             <i class="fa-brands fa-facebook"></i>
@@ -120,10 +113,6 @@
 </style>
 
 <style lang="scss">
-    #container {
-        padding: 0 !important;
-        width: 100% !important;
-    }
     .logo {
         width: 300px;
         display: block;
