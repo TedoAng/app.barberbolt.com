@@ -53,10 +53,10 @@
     }
     h1 {
         color: #FFF6E5;
-        font-size: 5rem;
+        font-size: 6rem;
         font-weight: 800;
-        font-family: "Noto Serif", serif;
-        line-height: 5.5rem;
+        font-family: "NotoSerifCBlack", serif;
+        line-height: 5rem;
         margin-bottom: 0;
     }
     h4 {

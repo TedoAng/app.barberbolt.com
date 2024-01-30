@@ -1,8 +1,8 @@
 <template>
     <div class="summary-layout">
         <div class="date">
-            <h5 class="px-2 mb-3">Резервация</h5>
-            <h4 class="px-2">Избери дата:</h4>
+            <h5 class="px-2 mb-2 hello">Резервация</h5>
+            <h4 class="px-2 choose-date">Избери дата:</h4>
             <div class="days rounded p-3 m-2">
                 <div class="day"></div>
                 <div class="day"></div>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="time">
-            <h5 class="px-2">Час</h5>
+            <h5 class="px-2 hello">Час</h5>
             <div class="times">
                 <div class="hour">
                     <div class="whole"></div>
@@ -64,11 +64,11 @@
             </div>
         </div>
         <div class="summary">
-            <h5 class="px-2">Обобщение</h5>
+            <h5 class="px-2 hello">Обобщение</h5>
             <div class="row m-3">
                 <div class="col-5 orange rounded-start p-4 d-flex flex-column justify-content-between">
                     <div>
-                        <p>Wed</p>
+                        <p>Ср</p>
                         <p>21</p>
                         <hr>
                         <p>11:00</p>
@@ -104,6 +104,17 @@ export default {
 }
 </script>
 <style lang="scss">
+    .choose-date{
+        font-family: "NotoSerifExtraCondensedBlackItalic", serif;
+        font-size: 2rem;
+        font-weight: 600;
+        font-style: italic;
+    }
+    .hello {
+        font-weight: 700;
+        font-size: 1.2rem;
+        line-height: 1.4rem;
+    }
     .summary-layout {
         margin: auto;
         max-width: 991px;
@@ -170,6 +181,11 @@ export default {
                 transform: scale(1.03);
             }
         }
+        p {
+            font-family: 'NotoSerifExtraCondensedItalic', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+        }
     }
     .carta {
         background-color: #F3E0B8;
@@ -183,6 +199,11 @@ export default {
             &::-webkit-scrollbar {
                 display: none;
             }
+        }
+        p {
+            font-family: 'NotoSerifExtraCondensedItalic', serif;
+            font-size: 1.3rem;
+            font-style: italic;
         }
     }
 </style>

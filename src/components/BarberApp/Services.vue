@@ -11,15 +11,20 @@ const user = ref({})
     <div class="service-layout">
         <div class="welcome">
             <div class="d-flex px-3">
+<<<<<<< Updated upstream
                 <p class="align-self-end pe-2">Здравей, </p>
                 <h3>{{user.given_name}}</h3>
+=======
+                <p class="align-self-end pe-2 hello">Здравей, </p>
+                <h3>Tedo</h3>
+>>>>>>> Stashed changes
             </div>
             <div class="info rounded m-3 p-3">
-                <p>От тук можеш да избереш процедурите за да резервираш своя час</p>
+                <p class="hello">От тук можеш да избереш процедурите за да резервираш своя час</p>
             </div>
         </div>
         <div class="services p-3 position-relative">
-            <h5>Процедури</h5>
+            <h5 class="hello">Процедури</h5>
             <div class="products d-flex flex-wrap gap-4 justify-content-center my-3">
                 <div class="product"></div>
                 <div class="product"></div>
@@ -66,6 +71,11 @@ const user = ref({})
     .welcome {
         height: 23vh;
     }
+    .hello {
+        font-weight: 700;
+        font-size: 1.2rem;
+        line-height: 1.4rem;
+    }
     .service-layout {
         margin: auto;
         max-width: 991px;
@@ -78,6 +88,12 @@ const user = ref({})
     }
     .info {
         background-color: #E08D41;
+    }
+    h3 {
+        font-family: "NotoSerifCBlackItalic", serif;
+        font-size: 2.5rem;
+        line-height: 2.5rem;
+        font-style: italic;
     }
     .services {
         height: 70vh;

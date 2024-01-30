@@ -10,4 +10,20 @@ body {
     font-family: "Montserrat", sans-serif;
     color: antiquewhite;
 }
+@font-face {
+    font-family: 'NotoSerifCBlack';
+    src: url('assets/fonts/NotoSerif-CondensedBlack.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'NotoSerifCBlackItalic';
+    src: url('assets/fonts/NotoSerif-CondensedBlackItalic.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'NotoSerifExtraCondensedBlackItalic';
+    src: url('assets/fonts/NotoSerif-ExtraCondensedBlackItalic.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'NotoSerifExtraCondensedItalic';
+    src: url('assets/fonts/NotoSerif-ExtraCondensedItalic.ttf') format('truetype');
+}
 
