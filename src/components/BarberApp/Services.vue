@@ -1,9 +1,18 @@
+<script setup>
+import {ref, onMounted} from 'vue'
+
+const user = ref({})
+
+    onMounted(() => {
+        user.value = JSON.parse(localStorage.getItem('userData'));
+    });
+</script>
 <template>
     <div class="service-layout">
         <div class="welcome">
             <div class="d-flex px-3">
                 <p class="align-self-end pe-2">Здравей, </p>
-                <h3>Name</h3>
+                <h3>{{user.given_name}}</h3>
             </div>
             <div class="info rounded m-3 p-3">
                 <p>От тук можеш да избереш процедурите за да резервираш своя час</p>
@@ -53,11 +62,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    
-}
-</script>
 <style lang="scss" scoped>
     .welcome {
         height: 23vh;

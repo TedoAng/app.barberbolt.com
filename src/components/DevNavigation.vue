@@ -1,8 +1,8 @@
 <template>
     <div class="dev-nav">
-        <router-link to="/">Home</router-link>
-        <router-link to="/services">Services</router-link>
-        <router-link to="/summary">Summary</router-link>
+        <router-link to="/"><i class="fa-solid fa-house"></i></router-link>
+        <router-link to="/services"><i class="fa-solid fa-gear"></i></router-link>
+        <router-link to="/summary"><i class="fa-solid fa-list"></i></router-link>
     </div>
 </template>
 <script>
@@ -22,6 +22,7 @@
         justify-content: space-evenly;
         align-items: center;
         font-weight: 600;
+        font-size: 1.5rem;
         a {
             text-decoration: none;
             color: #FFF6E5;
