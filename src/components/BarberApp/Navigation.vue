@@ -1,12 +1,20 @@
+<script setup>
+import { useRouter } from 'vue-router';
+
+    const router = useRouter();
+
+    const back = () => {
+        router.go(-1)
+    }
+</script>
+
 <template >
     <div class="nav d-flex justify-content-between">
-        <i class="fa-solid fa-chevron-left"></i>
+        <i class="fa-solid fa-chevron-left" @click="back"></i>
         <i class="fa-solid fa-bars"></i>
     </div>
 </template>
-<script>
 
-</script>
 <style lang="scss" scoped>
     .nav {
         height: 7vh;

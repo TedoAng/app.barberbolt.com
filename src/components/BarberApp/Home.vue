@@ -1,9 +1,19 @@
 <script setup>
-    import Logo from '@/assets/BarberBoltLogo.svg';
+    import Logo from '@/assets/BarberBoltLogo.svg'
     import {ref, onMounted} from 'vue'
+    import GoogleLogo from '@/assets/google_logo.svg'
+    import { GoogleLogin, decodeCredential, googleLogout } from 'vue3-google-login'
+    import { useRouter } from 'vue-router';
     
     const reserve = ref(true);
+    const router = useRouter();
 
+
+    const callback = (response) => {
+        console.log(decodeCredential(response.credential));
+        localStorage.setItem('userData', JSON.stringify(decodeCredential(response.credential)));
+        router.push('/services');
+    }
 </script>
 
 <template>
@@ -26,7 +36,7 @@
                             Вход с Facebook
                         </button>
                     </a>
-                    <div class="g_id_signin" data-type="standard"></div>
+                    <GoogleLogin :callback="callback" :buttonConfig="{shape: 'pill', theme: 'filled_blue'}"/>
                 </div>
             </transition>
         </div>
