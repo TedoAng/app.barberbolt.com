@@ -11,13 +11,8 @@ const user = ref({})
     <div class="service-layout">
         <div class="welcome">
             <div class="d-flex px-3">
-<<<<<<< Updated upstream
                 <p class="align-self-end pe-2">Здравей, </p>
                 <h3>{{user.given_name}}</h3>
-=======
-                <p class="align-self-end pe-2 hello">Здравей, </p>
-                <h3>Tedo</h3>
->>>>>>> Stashed changes
             </div>
             <div class="info rounded m-3 p-3">
                 <p class="hello">От тук можеш да избереш процедурите за да резервираш своя час</p>
