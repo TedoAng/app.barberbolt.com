@@ -1,10 +1,23 @@
 <script setup>
-import {ref, onMounted} from 'vue'
+    import {ref, onMounted} from 'vue'
+    import { getServices } from '@/services/barber-service'
+    import { useRouter } from 'vue-router';
+    import Svg from '@/assets/svg/index';
+    
+    
+    const router = useRouter();
+    const user = ref({});
+    const services = ref([]);
 
-const user = ref({})
+    const handleForwardBtn = () => {
+        router.push('/summary');
+    }
 
     onMounted(() => {
         user.value = JSON.parse(localStorage.getItem('userData'));
+        getServices().then(response => {
+          services.value = response;
+        });
     });
 </script>
 <template>
@@ -21,43 +34,13 @@ const user = ref({})
         <div class="services p-3 position-relative">
             <h5 class="hello">Процедури</h5>
             <div class="products d-flex flex-wrap gap-4 justify-content-center my-3">
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
-                <div class="product"></div>
+                <button v-for="service in services" class="product text-center">
+                    <div v-html="Svg[service.icon]"></div>
+                    <p>{{ service.name }}</p>
+                    <p>{{ service.price }}</p>
+                </button>
             </div>
-            <button class="reserve position-absolute start-50 bottom-0 translate-middle-x my-3">НАПРЕД</button>
+            <button class="reserve position-absolute start-50 bottom-0 translate-middle-x my-3" @click="handleForwardBtn">НАПРЕД</button>
         </div>
     </div>
 </template>
@@ -114,9 +97,11 @@ const user = ref({})
         }
     }
     .product {
-        width: 80px;
-        height: 80px;
-        background-color: crimson;
+        width: 100px;
+        line-height: 1.1rem;
+        font-weight: 600;
+        background-color: transparent;
+        border: none;
     }
     .products {
         overflow: scroll;

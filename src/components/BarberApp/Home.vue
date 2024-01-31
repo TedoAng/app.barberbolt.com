@@ -1,12 +1,12 @@
 <script setup>
     import Logo from '@/assets/BarberBoltLogo.svg'
     import {ref, onMounted} from 'vue'
-    import GoogleLogo from '@/assets/google_logo.svg'
     import { GoogleLogin, decodeCredential, googleLogout } from 'vue3-google-login'
     import { useRouter } from 'vue-router';
     
     const reserve = ref(true);
     const router = useRouter();
+    const loggedIn = ref(false);
 
 
     const callback = (response) => {
@@ -14,6 +14,18 @@
         localStorage.setItem('userData', JSON.stringify(decodeCredential(response.credential)));
         router.push('/services');
     }
+
+    const handleReserveBtn = () => {
+        if (loggedIn.value) {
+            router.push('/services');
+        } else {
+            reserve.value = !reserve.value
+        }
+    }
+
+    onMounted(() => {
+        localStorage.getItem('userData') ? loggedIn.value = true : false;
+    });
 </script>
 
 <template>
@@ -25,11 +37,11 @@
             <transition name="out">
                 <div v-show="reserve" class="my-5 position-absolute top-50 start-50 translate-middle-x">
                     <h4 class="text-center">best style</h4>
-                    <button class="reserve my-4" @click="reserve = !reserve">РЕЗЕРВИРАЙ</button>
+                    <button class="reserve my-4" @click="handleReserveBtn">РЕЗЕРВИРАЙ</button>
                 </div>
             </transition>
             <transition name="in">
-                <div v-show="!reserve" class="my-5 position-absolute top-50 start-50 translate-middle-x">
+                <div v-show="!reserve" class="my-5 pt-5 position-absolute top-50 start-50 translate-middle-x">
                     <a href="/auth/facebook" class="text-decoration-none d-none">
                         <button class="rounded social-button mx-auto position-relative my-3 fb-btn">
                             <i class="fa-brands fa-facebook"></i>
@@ -81,7 +93,7 @@
         background-color: #E08D41;
         color: #FFF6E5;
         border-radius: 30px;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: 600;
         width: fit-content;
         padding: 5px 20px;
