@@ -39,11 +39,11 @@
             <h5 class="hello">Процедури</h5>
             <div class="products my-3">
                 <div class="grid">
-                    <button v-for="service in services" class="product d-flex flex-column align-items-center justify-content-between" :key="service.id" @click="handleProductSelect">
+                    <div v-for="service in services" class="product d-flex flex-column align-items-center justify-content-between" :key="service.id" @click="handleProductSelect">
                         <div v-html="Svg[service.icon]"></div>
                         <p>{{ service.name }}</p>
                         <p><strong>{{ service.price }}лв.</strong></p>
-                    </button>
+                    </div>
                 </div>
             </div>
             <button class="reserve position-absolute start-50 bottom-0 translate-middle-x my-3" @click="handleForwardBtn">НАПРЕД</button>
@@ -114,11 +114,11 @@
             gap: 10px;
             .product {
                 padding: 5px;
-                background-color: transparent;
                 line-height: 1.1rem;
                 font-weight: 600;
-                border: none;
                 font-size: 0.9rem;
+                cursor: pointer;
+                user-select: none;
                 div {
                     width: 80px;
                     margin-inline: auto;
@@ -127,6 +127,7 @@
                 p {
                     text-align: center;
                     pointer-events: none;
+                    text-decoration: none;
                     strong {
                         font-size: 1rem;
                     }
