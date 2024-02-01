@@ -13,6 +13,10 @@
         router.push('/summary');
     }
 
+    const handleProductSelect = (event) => {
+        console.log(event.target);
+    }
+
     onMounted(() => {
         user.value = JSON.parse(localStorage.getItem('userData'));
         getServices().then(response => {
@@ -33,12 +37,14 @@
         </div>
         <div class="services p-3 position-relative">
             <h5 class="hello">Процедури</h5>
-            <div class="products d-flex flex-wrap gap-4 justify-content-center my-3">
-                <button v-for="service in services" class="product text-center">
-                    <div v-html="Svg[service.icon]"></div>
-                    <p>{{ service.name }}</p>
-                    <p>{{ service.price }}</p>
-                </button>
+            <div class="products my-3">
+                <div class="grid">
+                    <button v-for="service in services" class="product d-flex flex-column align-items-center justify-content-between" :key="service.id" @click="handleProductSelect">
+                        <div v-html="Svg[service.icon]"></div>
+                        <p>{{ service.name }}</p>
+                        <p><strong>{{ service.price }}лв.</strong></p>
+                    </button>
+                </div>
             </div>
             <button class="reserve position-absolute start-50 bottom-0 translate-middle-x my-3" @click="handleForwardBtn">НАПРЕД</button>
         </div>
@@ -96,18 +102,40 @@
             scale: 1.03;
         }
     }
-    .product {
-        width: 100px;
-        line-height: 1.1rem;
-        font-weight: 600;
-        background-color: transparent;
-        border: none;
-    }
     .products {
-        overflow: scroll;
         height: calc(100% - 104px);
         &::-webkit-scrollbar {
             display: none;
+        }
+        overflow: scroll;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            .product {
+                padding: 5px;
+                background-color: transparent;
+                line-height: 1.1rem;
+                font-weight: 600;
+                border: none;
+                font-size: 0.9rem;
+                div {
+                    width: 80px;
+                    margin-inline: auto;
+                    pointer-events: none;
+                }
+                p {
+                    text-align: center;
+                    pointer-events: none;
+                    strong {
+                        font-size: 1rem;
+                    }
+                }
+                &:hover {
+                    background-color: #FFF6E5;
+                    border-radius: 6px;
+                }
+            }
         }
     }
 </style>
