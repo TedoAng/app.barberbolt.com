@@ -17,7 +17,7 @@ import { useRouter } from 'vue-router';
 
 <style lang="scss" scoped>
     .nav {
-        height: 7vh;
+        height: 7dvh;
     }
     i {
         color: #FFF6E5;

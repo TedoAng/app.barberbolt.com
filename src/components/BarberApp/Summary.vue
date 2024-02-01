@@ -4,7 +4,10 @@
             <h5 class="px-2 mb-2 hello">Резервация</h5>
             <h4 class="px-2 choose-date">Избери дата:</h4>
             <div class="days rounded p-3 m-2">
-                <div class="day"></div>
+                <div class="day">
+                    <p>pon</p>
+                    <p>10</p>
+                </div>
                 <div class="day"></div>
                 <div class="day"></div>
                 <div class="day"></div>
@@ -22,7 +25,7 @@
                 <div class="day"></div>
             </div>
         </div>
-        <div class="time">
+        <div class="time mb-2">
             <h5 class="px-2 hello">Час</h5>
             <div class="times">
                 <div class="hour">
@@ -65,7 +68,7 @@
         </div>
         <div class="summary">
             <h5 class="px-2 hello">Обобщение</h5>
-            <div class="row m-3">
+            <div class="row mx-3">
                 <div class="col-5 orange rounded-start p-4 d-flex flex-column justify-content-between">
                     <div>
                         <p>Ср</p>
@@ -121,19 +124,25 @@ export default {
         color: #FFF6E5;
     }
     .date {
-        height: 25vh;
+        height: 28dvh;
+        overflow: hidden;
     }
     .time {
-        height: 20vh;
+        height: 20dvh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
     .summary {
-        height: 48vh;
+        height: 45dvh;
+        overflow: hidden;
         .row {
-            height: calc(100% - 80px);
+            height: calc(100% - 60px);
         }
     }
     .days {
         background-color: #F3E0B8;
+        height: calc(100% - 94px);
         overflow-x: scroll;
         white-space: nowrap;
         &::-webkit-scrollbar {
@@ -142,25 +151,34 @@ export default {
     }
     .day {
         width: 50px;
-        height: 80px;
+        height: 100%;
         background-color: crimson;
         margin-right: 5px;
         display: inline-block;
         vertical-align: middle;
+        p {
+            margin-bottom: 0;
+        }
     }
     .whole {
-        width: 100px;
-        height: 50px;
         background-color: crimson;
-        margin: 5px;
         border-radius: 10px;
     }
     .hour {
-        display: inline-block;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 100px);
+        gap: 5px;
+        height: 100%;
     }
     .times {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 100px);
+        grid-auto-flow: column;
+        gap: 5px;
         overflow-x: scroll;
         white-space: nowrap;
+        margin-left: 5px;
         &::-webkit-scrollbar {
             display: none;
         }

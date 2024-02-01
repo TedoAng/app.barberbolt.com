@@ -53,7 +53,7 @@
 
 <style lang="scss" scoped>
     .welcome {
-        height: 23vh;
+        height: 23dvh;
     }
     .hello {
         font-weight: 700;
@@ -80,7 +80,7 @@
         font-style: italic;
     }
     .services {
-        height: 70vh;
+        height: 70dvh;
         background-color: #F3E0B8;
         color: #525252;
         overflow: hidden;
