@@ -3,11 +3,13 @@
     import { getServices } from '@/services/barber-service'
     import { useRouter } from 'vue-router';
     import Svg from '@/assets/svg/index';
+    import Candy from '@/components/Candy.vue'
     
     
     const router = useRouter();
     const user = ref({});
     const services = ref([]);
+    const loading = ref(true);
 
     const handleForwardBtn = () => {
         router.push('/summary');
@@ -21,6 +23,7 @@
         user.value = JSON.parse(localStorage.getItem('userData'));
         getServices().then(response => {
           services.value = response;
+          loading.value = false;
         });
     });
 </script>
@@ -49,9 +52,26 @@
             <button class="reserve position-absolute start-50 bottom-0 translate-middle-x my-3" @click="handleForwardBtn">НАПРЕД</button>
         </div>
     </div>
+    <div v-if="loading" class="candy-loading">
+        <Candy class="candy"/>
+    </div>
 </template>
 
 <style lang="scss" scoped>
+    .candy-loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #5252525b;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .candy {
+            transform: scale(.6);
+        }
+    }
     .welcome {
         height: 23dvh;
     }

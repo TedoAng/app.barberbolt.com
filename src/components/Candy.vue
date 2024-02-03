@@ -1,9 +1,7 @@
 <script setup>
-import Logo from '../assets/logo.svg'
 </script>
 
 <template>
-    <div class="flex-container my-5">
         <div class="unit">
             <div class="pole-unit vary">
                 <div class="pole-top">
@@ -25,18 +23,9 @@ import Logo from '../assets/logo.svg'
                 </div>
             </div>
         </div>
-    </div>
 </template>
 
 <style lang="css" scoped>
-.flex-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  }
   .unit {
     padding: 0 60px;
   }
