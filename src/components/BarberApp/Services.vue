@@ -159,4 +159,23 @@
             }
         }
     }
+
+    @media screen and (max-width: 320px) {
+        .reserve {
+            font-size: 1.1rem;
+        }
+        .grid {
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)) !important;
+        }
+        h3 {
+            font-size: 2rem;
+        }
+        .info {
+            padding: 10px !important;
+            margin: 10px !important;
+            p {
+                font-size: 13px;
+            }
+        }
+    }
 </style>

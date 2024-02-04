@@ -11,6 +11,7 @@
 <template>
     <Navigation/>
     <router-view></router-view>
+    <DevNavigation/>
 </template>
 
 <style lang="scss" scoped>
