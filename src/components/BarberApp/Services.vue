@@ -1,5 +1,5 @@
 <script setup>
-    import {ref, onMounted} from 'vue'
+    import {ref, onMounted, onUnmounted} from 'vue'
     import { getServices } from '@/services/barber-service'
     import { useRouter } from 'vue-router';
     import Svg from '@/assets/svg/index';
@@ -9,14 +9,29 @@
     const router = useRouter();
     const user = ref({});
     const services = ref([]);
+    const cartServices = ref([]);
+    const cartTotal = ref(0);
     const loading = ref(true);
 
     const handleForwardBtn = () => {
         router.push('/summary');
+        putInCart();
     }
 
     const handleProductSelect = (event) => {
-        console.log(event.target);
+        const selected = +event.target.getAttribute("data-service-id");
+        cartServices.value.includes(selected) ? 
+        cartServices.value = cartServices.value.filter(el => el !== selected) :
+        cartServices.value.push(selected);
+    }
+
+    const putInCart = () => {
+        services.value.forEach(service => {
+            if (cartServices.value.includes(service.id)) {
+                cartTotal.value += +service.price
+            }
+        });
+        localStorage.setItem('cart', JSON.stringify({ services: cartServices.value, total: cartTotal.value }));
     }
 
     onMounted(() => {
@@ -25,7 +40,18 @@
           services.value = response;
           loading.value = false;
         });
+
+        localStorage.getItem('cart') !== null ? 
+        cartServices.value = JSON.parse(localStorage.getItem('cart')).services :
+        cartServices.value = cartServices.value;
     });
+
+    onUnmounted(() => {
+        console.log("unmounted");
+        putInCart();
+    });
+
+    
 </script>
 <template>
     <div class="service-layout">
@@ -42,7 +68,14 @@
             <h5 class="hello">Процедури</h5>
             <div class="products my-3">
                 <div class="grid">
-                    <div v-for="service in services" class="product d-flex flex-column align-items-center justify-content-between" :key="service.id" @click="handleProductSelect">
+                    <div 
+                    v-for="service in services" 
+                    :class="{ selected: cartServices.includes(service.id) ? true : false }" 
+                    class="product d-flex flex-column align-items-center justify-content-between" 
+                    :key="service.id" 
+                    :data-service-id="service.id" 
+                    @click="handleProductSelect"
+                    >
                         <div v-html="Svg[service.icon]"></div>
                         <p>{{ service.name }}</p>
                         <p><strong>{{ service.price }}лв.</strong></p>
@@ -152,10 +185,10 @@
                         font-size: 1rem;
                     }
                 }
-                &:hover {
-                    background-color: #FFF6E5;
-                    border-radius: 6px;
-                }
+            }
+            .selected {
+                background-color: #FFF6E5;
+                border-radius: 6px;
             }
         }
     }

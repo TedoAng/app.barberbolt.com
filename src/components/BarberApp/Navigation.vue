@@ -21,7 +21,7 @@ import { useRouter } from 'vue-router';
     }
     i {
         color: #FFF6E5;
-        font-size: 2rem;
+        font-size: 1.7rem;
         padding: 10px 20px;
     }
 </style>
