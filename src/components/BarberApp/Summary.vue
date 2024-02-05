@@ -3,8 +3,12 @@
 
     const showDays = ref([]);
     const showTimes = ref([]);
-    const days = ref(null);
-    const time = ref(null);
+    const selectedDay = ref('-');
+    const selectedTime = ref('-');
+    const printDate = ref({
+        day: '-',
+        date: '-'
+    });
 
     const getDays = ( length = 7 ) => {
         const dayNames = ['Нед', 'Пон', 'Вт', 'Ср', 'Чет', 'Пет', 'Съб'];
@@ -49,14 +53,13 @@
     }
 
     const handleSelectDay = (event) => {
-        days.value.forEach(day => day.classList.remove('select-day'));
-        event.target.classList.add('select-day');
+        printDate.value.day = event.target.children[0].textContent;
+        printDate.value.date = event.target.children[1].textContent;
+        selectedDay.value = event.target.getAttribute("data-date");
     }
 
     const handleSelectTime = (event) => {
-
-        time.value.forEach(time => time.classList.remove('select-whole'));
-        event.target.classList.add('select-whole');
+        selectedTime.value = event.target.textContent;
     }
 
     onMounted(() => {
@@ -71,7 +74,12 @@
             <h5 class="px-2 mb-2 hello">Резервация</h5>
             <h4 class="px-2 choose-date">Избери дата:</h4>
             <div class="days rounded p-3 m-2 ">
-                <div ref="days" v-for="day in showDays" class="day" @click="handleSelectDay">
+                <div
+                v-for="day in showDays"
+                :class="{'select-day': `${day.year}-${day.month < 10 ? '0' + day.month : day.month}-${day.date < 10 ? '0' + day.date : day.date}` === selectedDay}"
+                class="day"
+                :data-date="`${day.year}-${day.month < 10 ? '0' + day.month : day.month}-${day.date < 10 ? '0' + day.date : day.date}`"
+                @click="handleSelectDay">
                     <p>{{day.day}}</p>
                     <p>{{day.date}}</p>
                 </div>
@@ -81,10 +89,10 @@
             <h5 class="px-2 hello">Час</h5>
             <div class="times py-1">
                 <div v-for="time in showTimes" class="hour">
-                    <div ref="time" class="whole" @click="handleSelectTime">
+                    <div :class="{'select-whole': `${time}:00` === selectedTime}" class="whole" @click="handleSelectTime">
                         {{`${time}:00`}}
                     </div>
-                    <div ref="time" class="whole" @click="handleSelectTime">
+                    <div :class="{'select-whole': `${time}:30` === selectedTime}" class="whole" @click="handleSelectTime">
                         {{`${time}:30`}}
                     </div>
                 </div>
@@ -95,10 +103,10 @@
             <div class="row mx-3">
                 <div class="col-5 orange rounded-start p-4 d-flex flex-column justify-content-between">
                     <div>
-                        <p>Ср</p>
-                        <p>21</p>
+                        <p>{{printDate.day}}</p>
+                        <p>{{printDate.date}}</p>
                         <hr>
-                        <p>11:00</p>
+                        <p>{{selectedTime}}</p>
                     </div>
                     <div>
                         <button>OK</button>
@@ -106,19 +114,14 @@
                 </div>
                 <div class="col-7 carta rounded-end">
                     <div class="order-preview">
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
-                        <p>order</p>
+                        <p>Lorem, ipsum dolor.</p>
+                        <p>Lorem, ipsum.</p>
+                        <p>Lorem ipsum dolor sit.</p>
+                        <p>Lorem, ipsum dolor.</p>
+                        <p>Lorem, ipsum dolor.</p>
+                        <p>Lorem, ipsum.</p>
+                        <p>Lorem ipsum dolor sit.</p>
+                        <p>Lorem, ipsum dolor.</p>
                     </div>
                 </div>
             </div>

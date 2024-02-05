@@ -68,12 +68,12 @@
             <h5 class="hello">Процедури</h5>
             <div class="products my-3">
                 <div class="grid">
-                    <div 
-                    v-for="service in services" 
-                    :class="{ selected: cartServices.includes(service.id) ? true : false }" 
-                    class="product d-flex flex-column align-items-center justify-content-between" 
-                    :key="service.id" 
-                    :data-service-id="service.id" 
+                    <div
+                    v-for="service in services"
+                    :class="{ selected: cartServices.includes(service.id) ? true : false }"
+                    class="product d-flex flex-column align-items-center justify-content-between"
+                    :key="service.id"
+                    :data-service-id="service.id"
                     @click="handleProductSelect"
                     >
                         <div v-html="Svg[service.icon]"></div>
