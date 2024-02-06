@@ -9,7 +9,7 @@
         day: '-',
         date: '-'
     });
-    const printDescription = ref('');
+    const printDescription = ref([]);
     const printTotal = ref('-')
 
     const getDays = ( length = 7 ) => {
@@ -68,8 +68,10 @@
         showDays.value = getDays(20);
         showTimes.value = createTimes(10, 19, '17-18');
         const cartData = JSON.parse(localStorage.getItem('cart'));
-        printDescription.value = cartData.description.split('\n');
-        printTotal.value = cartData.total;
+        if (cartData) {
+            printDescription.value = cartData.description.split('\n');
+            printTotal.value = cartData.total;
+        }
     });
 </script>
 
@@ -284,7 +286,7 @@
             border: none;
             font-weight: 600;
             font-size: 1.2rem;
-            &:hover {
+            &:active {
                 filter: brightness(80%);
                 transform: scale(1.03);
             }

@@ -99,7 +99,7 @@
         padding: 5px 20px;
         margin: auto;
         display: block;
-        &:hover {
+        &:active {
             background-color: darken(#E08D41, 8%);
             color: #F3E0B8;
             scale: 1.03;
@@ -139,53 +139,5 @@
         width: 300px;
         display: block;
         margin: auto;
-    }
-    .social-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: auto;
-        width: 250px;
-        height: 50px;
-        border: none;
-        font-weight: 600;
-        font-size: 1.3rem;
-        padding-left: 50px;
-        transition: all .2s linear;
-        i,
-        svg {
-            position: absolute;
-            left: 4px;
-            top: 4px;
-            font-size: 2rem;
-            padding: 5px;
-            border-radius: 50%;
-        }
-        i {
-            background-color: #4267b2;
-        }
-        &:hover {
-            transform: scale(0.98);
-        }
-        svg {
-            width: 40px;
-            height: 40px;
-        }
-    }
-    .google-btn {
-        background-color: #fff;
-        color: #333333;
-        &:hover {
-            svg {
-                background-color: #333333;
-            }
-        }
-    }
-    .fb-btn {
-        background-color: #4267b2;
-        color: #fff;
-        &:hover {
-            color: #333333;
-        }
     }
 </style>

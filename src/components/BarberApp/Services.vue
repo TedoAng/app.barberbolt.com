@@ -153,7 +153,7 @@
         padding: 5px 20px;
         margin: auto;
         display: block;
-        &:hover {
+        &:active {
             background-color: darken(#E08D41, 8%);
             color: #F3E0B8;
             scale: 1.03;
