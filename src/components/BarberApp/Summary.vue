@@ -9,6 +9,8 @@
         day: '-',
         date: '-'
     });
+    const printDescription = ref('');
+    const printTotal = ref('-')
 
     const getDays = ( length = 7 ) => {
         const dayNames = ['Нед', 'Пон', 'Вт', 'Ср', 'Чет', 'Пет', 'Съб'];
@@ -63,8 +65,11 @@
     }
 
     onMounted(() => {
-        showDays.value = getDays();
+        showDays.value = getDays(20);
         showTimes.value = createTimes(10, 19, '17-18');
+        const cartData = JSON.parse(localStorage.getItem('cart'));
+        printDescription.value = cartData.description.split('\n');
+        printTotal.value = cartData.total;
     });
 </script>
 
@@ -101,27 +106,23 @@
         <div class="summary">
             <h5 class="px-2 hello">Обобщение</h5>
             <div class="row mx-3">
-                <div class="col-5 orange rounded-start p-4 d-flex flex-column justify-content-between">
+                <div class="col-5 orange rounded-start p-4">
                     <div>
                         <p>{{printDate.day}}</p>
                         <p>{{printDate.date}}</p>
-                        <hr>
-                        <p>{{selectedTime}}</p>
-                    </div>
-                    <div>
-                        <button>OK</button>
+                        <hr class="text-dark">
+                        <p class="text-dark">{{selectedTime}}</p>
                     </div>
                 </div>
                 <div class="col-7 carta rounded-end">
-                    <div class="order-preview">
-                        <p>Lorem, ipsum dolor.</p>
-                        <p>Lorem, ipsum.</p>
-                        <p>Lorem ipsum dolor sit.</p>
-                        <p>Lorem, ipsum dolor.</p>
-                        <p>Lorem, ipsum dolor.</p>
-                        <p>Lorem, ipsum.</p>
-                        <p>Lorem ipsum dolor sit.</p>
-                        <p>Lorem, ipsum dolor.</p>
+                    <div class="order-preview d-flex flex-column justify-content-between">
+                        <div>
+                            <p v-for="item in printDescription">{{ item }}</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mt-3">
+                        <div class="price">{{ printTotal }} лв.</div>
+                        <button class="total">OK</button>
                     </div>
                 </div>
             </div>
@@ -233,19 +234,6 @@
     .orange {
         background-color: #E08D41;
         height: 100%;
-        button {
-            background-color: #525252;
-            padding: 10px 30px;
-            color: #FFF6E5;
-            border-radius: 30px;
-            border: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-            &:hover {
-                filter: brightness(80%);
-                transform: scale(1.03);
-            }
-        }
         p {
             font-family: 'NotoSerifExtraCondensedItalic', serif;
             font-size: 1.3rem;
@@ -259,7 +247,7 @@
         overflow-y: hidden;
         padding: 20px;
         .order-preview {
-            height: 100%;
+            height: 80%;
             overflow: scroll;
             &::-webkit-scrollbar {
                 display: none;
@@ -268,7 +256,66 @@
         p {
             font-family: 'NotoSerifExtraCondensedItalic', serif;
             font-size: 1.3rem;
-            font-style: italic;
+            margin-bottom: 0;
+        }
+        .price {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            background-color: #525252;
+            padding: 5px 10px;
+            color: #FFF6E5;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            line-height: 1rem;
+        }
+        .total {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            background-color: #525252;
+            padding: 5px 20px;
+            color: #FFF6E5;
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
+            border: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            &:hover {
+                filter: brightness(80%);
+                transform: scale(1.03);
+            }
+        }
+    }
+    @media screen and (max-width: 320px) {
+        h5 {
+            font-size: 1.1rem !important;
+        }
+        h4 {
+            font-size: 1.5rem !important;
+        }
+        .days {
+            padding: 5px !important;
+        }
+        p {
+            font-size: 1.2rem !important;
+        }
+        .hour {
+            .whole {
+                font-size: 1.2rem !important;
+            }
+        }
+        .orange {
+            padding: 10px !important;
+        }
+        .carta {
+            padding: 10px;
+            .order-preview {
+                height: 70%;
+            } 
         }
     }
 </style>

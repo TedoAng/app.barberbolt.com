@@ -10,7 +10,10 @@
     const user = ref({});
     const services = ref([]);
     const cartServices = ref([]);
-    const cartTotal = ref(0);
+    const cart = ref({
+        total: 0,
+        description: ''
+    });
     const loading = ref(true);
 
     const handleForwardBtn = () => {
@@ -28,10 +31,11 @@
     const putInCart = () => {
         services.value.forEach(service => {
             if (cartServices.value.includes(service.id)) {
-                cartTotal.value += +service.price
+                cart.value.total += +service.price
+                cart.value.description += `\n${service.name} - ${service.price}лв.`
             }
         });
-        localStorage.setItem('cart', JSON.stringify({ services: cartServices.value, total: cartTotal.value }));
+        localStorage.setItem('cart', JSON.stringify({ services: cartServices.value, total: cart.value.total, description: cart.value.description }));
     }
 
     onMounted(() => {
@@ -46,10 +50,10 @@
         cartServices.value = cartServices.value;
     });
 
-    onUnmounted(() => {
-        console.log("unmounted");
-        putInCart();
-    });
+    // onUnmounted(() => {
+    //     console.log("unmounted");
+    //     putInCart();
+    // });
 
     
 </script>
