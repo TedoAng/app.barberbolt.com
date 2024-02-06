@@ -119,10 +119,13 @@
                 <div class="col-7 carta rounded-end">
                     <div class="order-preview d-flex flex-column justify-content-between">
                         <div>
-                            <p v-for="item in printDescription">{{ item }}</p>
+                            <p v-for="item in printDescription.slice(1)">
+                                {{ item }}
+                                <hr>
+                            </p>
                         </div>
                     </div>
-                    <div class="d-flex mt-3">
+                    <div class="action-bar d-flex mt-3">
                         <div class="price">{{ printTotal }} лв.</div>
                         <button class="total">OK</button>
                     </div>
@@ -260,35 +263,36 @@
             font-size: 1.3rem;
             margin-bottom: 0;
         }
-        .price {
-            display: flex;
-            align-items: center;
-            height: 50px;
-            background-color: #525252;
-            padding: 5px 10px;
-            color: #FFF6E5;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            border: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-            line-height: 1rem;
-        }
-        .total {
-            display: flex;
-            align-items: center;
-            height: 50px;
-            background-color: #525252;
-            padding: 5px 20px;
-            color: #FFF6E5;
-            border-top-right-radius: 30px;
-            border-bottom-right-radius: 30px;
-            border: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-            &:active {
-                filter: brightness(80%);
-                transform: scale(1.03);
+        .action-bar {
+            height: 15%;
+            .price {
+                display: flex;
+                align-items: center;
+                background-color: #525252;
+                padding: 5px 10px;
+                color: #FFF6E5;
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+                border: none;
+                font-weight: 600;
+                font-size: 1.2rem;
+                line-height: 1rem;
+            }
+            .total {
+                display: flex;
+                align-items: center;
+                background-color: #525252;
+                padding: 5px 20px;
+                color: #FFF6E5;
+                border-top-right-radius: 30px;
+                border-bottom-right-radius: 30px;
+                border: none;
+                font-weight: 600;
+                font-size: 1.2rem;
+                &:active {
+                    filter: brightness(80%);
+                    transform: scale(1.03);
+                }
             }
         }
     }
