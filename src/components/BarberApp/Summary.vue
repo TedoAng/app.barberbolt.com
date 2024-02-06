@@ -1,16 +1,19 @@
 <script setup>
     import { ref, onMounted } from 'vue';
+    import { getReservations } from '@/services/barber-service'
 
     const showDays = ref([]);
     const showTimes = ref([]);
-    const selectedDay = ref('-');
+    const selectedDay = ref(null);
     const selectedTime = ref('-');
     const printDate = ref({
         day: '-',
         date: '-'
     });
     const printDescription = ref([]);
-    const printTotal = ref('-')
+    const printTotal = ref('-');
+    const reservations = ref({});
+    const busyTimes = ref([]);
 
     const getDays = ( length = 7 ) => {
         const dayNames = ['Нед', 'Пон', 'Вт', 'Ср', 'Чет', 'Пет', 'Съб'];
@@ -58,6 +61,8 @@
         printDate.value.day = event.target.children[0].textContent;
         printDate.value.date = event.target.children[1].textContent;
         selectedDay.value = event.target.getAttribute("data-date");
+        busyTimes.value = reservations.value[selectedDay.value] ?? [];
+        selectedTime.value = '-';
     }
 
     const handleSelectTime = (event) => {
@@ -65,6 +70,7 @@
     }
 
     onMounted(() => {
+        getReservations().then(el => reservations.value = el);
         showDays.value = getDays(20);
         showTimes.value = createTimes(10, 19, '17-18');
         const cartData = JSON.parse(localStorage.getItem('cart'));
@@ -92,15 +98,15 @@
                 </div>
             </div>
         </div>
-        <div class="time mb-2">
+        <div v-if="selectedDay" class="time mb-2">
             <h5 class="px-2 hello">Час</h5>
             <div class="times">
                 <div v-for="time in showTimes" class="hour">
                     <div :class="{'select-whole': `${time}:00` === selectedTime}" class="whole" @click="handleSelectTime">
-                        {{`${time}:00`}}
+                        {{busyTimes.includes(`${time}:00:00`)? 'зает' : `${time}:00`}}
                     </div>
                     <div :class="{'select-whole': `${time}:30` === selectedTime}" class="whole" @click="handleSelectTime">
-                        {{`${time}:30`}}
+                        {{busyTimes.includes(`${time}:30:00`)? 'зает' : `${time}:30`}}
                     </div>
                 </div>
             </div>
@@ -113,7 +119,7 @@
                         <p>{{printDate.day}}</p>
                         <p>{{printDate.date}}</p>
                         <hr class="text-dark">
-                        <p class="text-dark">{{selectedTime}}</p>
+                        <p class="text-dark">{{selectedTime === 'зает' ? 'N/A' : selectedTime}}</p>
                     </div>
                 </div>
                 <div class="col-7 carta rounded-end">
