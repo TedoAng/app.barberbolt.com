@@ -136,7 +136,7 @@
 
 <style lang="scss">
     .logo {
-        width: 300px;
+        height: 30dvh;
         display: block;
         margin: auto;
     }

@@ -94,7 +94,7 @@
         </div>
         <div class="time mb-2">
             <h5 class="px-2 hello">Час</h5>
-            <div class="times py-1">
+            <div class="times">
                 <div v-for="time in showTimes" class="hour">
                     <div :class="{'select-whole': `${time}:00` === selectedTime}" class="whole" @click="handleSelectTime">
                         {{`${time}:00`}}

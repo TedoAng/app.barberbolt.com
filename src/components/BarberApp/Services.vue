@@ -114,8 +114,8 @@
     }
     .hello {
         font-weight: 700;
-        font-size: 1.2rem;
-        line-height: 1.4rem;
+        font-size: 1rem;
+        line-height: 1.1rem;
     }
     .service-layout {
         margin: auto;
@@ -134,7 +134,6 @@
         font-family: "NotoSerifCBlackItalic", serif;
         font-size: 2.5rem;
         line-height: 2.5rem;
-        font-style: italic;
     }
     .services {
         height: 70dvh;
@@ -147,7 +146,7 @@
         background-color: #E08D41;
         color: #FFF6E5;
         border-radius: 30px;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: 600;
         width: fit-content;
         padding: 5px 20px;
