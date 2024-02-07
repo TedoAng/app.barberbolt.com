@@ -2,6 +2,10 @@ import axios from "axios";
 
 
 const barberURL = 'https://api.barberbolt.com/api';
+const headers = {
+    'content-type': 'application/vnd.api+json',
+    'accept': 'application/vnd.api+json'
+};
 
 export const getServices = async () => {
     const request = await axios.get(`${barberURL}/resource/services`);
@@ -24,6 +28,18 @@ export const getReservations = async () => {
         return reservations; 
 
     } catch (error) {
+        return error;
+    }
+};
+
+export const registerUser = async (data) => {
+    try {
+        const resp = await axios.post(`${barberURL}/register`, data, headers);
+        if (resp.status === 200) {
+            return resp.data.data.user.id;
+        }
+    } catch (error) {
+        console.log(error);
         return error;
     }
 };

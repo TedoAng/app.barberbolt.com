@@ -3,6 +3,7 @@
     import {ref, onMounted} from 'vue'
     import { GoogleLogin, decodeCredential, googleLogout } from 'vue3-google-login'
     import { useRouter } from 'vue-router';
+    import { registerUser } from '@/services/barber-service'
     
     const reserve = ref(true);
     const router = useRouter();
@@ -10,9 +11,18 @@
 
 
     const callback = (response) => {
-        console.log(decodeCredential(response.credential));
-        localStorage.setItem('userData', JSON.stringify(decodeCredential(response.credential)));
-        router.push('/services');
+        const user = decodeCredential(response.credential);
+        const data = {
+            name: user.name,
+            email: user.email,
+            password: 'Pass2030',
+            password_confirmation: 'Pass2030'
+        }
+        registerUser(data).then(id => {
+            localStorage.setItem('userID', id);
+            localStorage.setItem('userData', JSON.stringify(user));
+            router.push('/services');
+        });
     }
 
     const handleReserveBtn = () => {
