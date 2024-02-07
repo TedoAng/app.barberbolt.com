@@ -111,6 +111,19 @@
                 </div>
             </div>
         </div>
+        <div v-else class="time mb-2">
+            <h5 class="px-2 hello">Час</h5>
+            <div class="times">
+                <div v-for="time in showTimes" class="hour">
+                    <div :class="{'select-whole': `${time}:00` === selectedTime}" class="whole">
+                        - -
+                    </div>
+                    <div :class="{'select-whole': `${time}:30` === selectedTime}" class="whole">
+                        - -
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="summary">
             <h5 class="px-2 hello">Обобщение</h5>
             <div class="row mx-3">
@@ -191,6 +204,7 @@
         margin-right: 5px;
         display: inline-block;
         cursor: pointer;
+        user-select: none;
         p {
             height: 50%;
             text-align: center;
@@ -219,6 +233,7 @@
         font-family: 'NotoSerifExtraCondensedItalic', serif;
         font-size: 1.4rem;
         cursor: pointer;
+        user-select: none;
     }
     .select-whole {
         background-color: #E08D41 !important;
@@ -283,6 +298,7 @@
                 font-weight: 600;
                 font-size: 1.2rem;
                 line-height: 1rem;
+                user-select: none;
             }
             .total {
                 display: flex;
@@ -295,6 +311,7 @@
                 border: none;
                 font-weight: 600;
                 font-size: 1.2rem;
+                user-select: none;
                 &:active {
                     filter: brightness(80%);
                     transform: scale(1.03);
@@ -328,6 +345,15 @@
             .order-preview {
                 height: 70%;
             } 
+        }
+        .action-bar {
+            .price,
+            .total {
+                padding: 12px !important;
+                font-size: 1rem !important;
+                white-space: nowrap;
+                transform: translateX(-7px);
+            }
         }
     }
 </style>

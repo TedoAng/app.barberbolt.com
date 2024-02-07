@@ -29,7 +29,7 @@
 </script>
 
 <template>
-    <div class="layout">
+    <div class="layout mt-5">
         <Logo class="logo mb-4"/>
         <h1 class="text-center">Barber</h1>
         <h1 class="text-center">Bolt</h1>

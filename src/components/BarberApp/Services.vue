@@ -49,12 +49,6 @@
         cartServices.value = JSON.parse(localStorage.getItem('cart')).services :
         cartServices.value = cartServices.value;
     });
-
-    // onUnmounted(() => {
-    //     console.log("unmounted");
-    //     putInCart();
-    // });
-
     
 </script>
 <template>
