@@ -1,6 +1,7 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted } from 'vue'
     import { getReservations } from '@/services/barber-service'
+    import Candy from '@/components/Candy.vue'
 
     const showDays = ref([]);
     const showTimes = ref([]);
@@ -14,6 +15,7 @@
     const printTotal = ref('-');
     const reservations = ref({});
     const busyTimes = ref([]);
+    const loading = ref(true);
 
     const getDays = ( length = 7 ) => {
         const dayNames = ['Нед', 'Пон', 'Вт', 'Ср', 'Чет', 'Пет', 'Съб'];
@@ -70,7 +72,10 @@
     }
 
     onMounted(() => {
-        getReservations().then(el => reservations.value = el);
+        getReservations().then(el => {
+            reservations.value = el
+            loading.value = false;
+        });
         showDays.value = getDays(20);
         showTimes.value = createTimes(10, 19, '17-18');
         const cartData = JSON.parse(localStorage.getItem('cart'));
@@ -152,6 +157,7 @@
             </div>
         </div>
     </div>
+    <Candy v-if="loading"/>
 </template>
 
 <style lang="scss" scoped>

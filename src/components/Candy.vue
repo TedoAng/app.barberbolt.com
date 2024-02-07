@@ -1,33 +1,44 @@
-<script setup>
-</script>
-
 <template>
-        <div class="unit">
-            <div class="pole-unit vary">
-                <div class="pole-top">
-        <!-- 			<div class="ball"></div> -->
-                    <div class="cover"></div>
-                    <div class="band"></div>
-                    <div class="thin-band"></div>
-                </div>
-                <div class="pole-middle">
-                    <div class="containerX">
-                        <div class="pole"></div>
-                    </div>
-                </div>
-                <div class="pole-bottom">
-                    <div class="thin-band"></div>
-                    <div class="band"></div>
-                    <div class="cover"></div>
-        <!-- 			<div class="ball"></div> -->
-                </div>
-            </div>
-        </div>
+  <div class="candy-loading">
+    <div class="unit">
+      <div class="pole-unit vary">
+          <div class="pole-top">
+  <!-- 			<div class="ball"></div> -->
+              <div class="cover"></div>
+              <div class="band"></div>
+              <div class="thin-band"></div>
+          </div>
+          <div class="pole-middle">
+              <div class="containerX">
+                  <div class="pole"></div>
+              </div>
+          </div>
+          <div class="pole-bottom">
+              <div class="thin-band"></div>
+              <div class="band"></div>
+              <div class="cover"></div>
+  <!-- 			<div class="ball"></div> -->
+          </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="css" scoped>
+  .candy-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #5252525b;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .unit {
     padding: 0 60px;
+    transform: scale(.6);
   }
   .shadow {
     width: 80px;

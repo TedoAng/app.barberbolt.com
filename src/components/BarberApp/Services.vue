@@ -1,8 +1,8 @@
 <script setup>
     import {ref, onMounted, onUnmounted} from 'vue'
     import { getServices } from '@/services/barber-service'
-    import { useRouter } from 'vue-router';
-    import Svg from '@/assets/svg/index';
+    import { useRouter } from 'vue-router'
+    import Svg from '@/assets/svg/index'
     import Candy from '@/components/Candy.vue'
     
     
@@ -83,26 +83,10 @@
             <button class="reserve position-absolute start-50 bottom-0 translate-middle-x my-3" @click="handleForwardBtn">НАПРЕД</button>
         </div>
     </div>
-    <div v-if="loading" class="candy-loading">
-        <Candy class="candy"/>
-    </div>
+    <Candy v-if="loading"/>
 </template>
 
 <style lang="scss" scoped>
-    .candy-loading {
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: #5252525b;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .candy {
-            transform: scale(.6);
-        }
-    }
     .welcome {
         height: 23dvh;
     }
