@@ -43,3 +43,12 @@ export const registerUser = async (data) => {
         return error;
     }
 };
+
+export const sendReservation = async (data) => {
+    try {
+        const resp = await axios.post(`${barberURL}/barber/create`, data, headers);
+        return resp.status;
+    } catch (error) {
+        return error;
+    }
+};

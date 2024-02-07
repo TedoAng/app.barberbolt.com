@@ -1,6 +1,6 @@
 <script setup>
     import { ref, onMounted } from 'vue'
-    import { getReservations } from '@/services/barber-service'
+    import { getReservations, sendReservation } from '@/services/barber-service'
     import Candy from '@/components/Candy.vue'
 
     const showDays = ref([]);
@@ -69,6 +69,19 @@
 
     const handleSelectTime = (event) => {
         selectedTime.value = event.target.textContent;
+    }
+
+    const handleOk = () => {
+        const cartData = JSON.parse(localStorage.getItem('cart'));
+        const userId = localStorage.getItem('userID');
+        const data = {
+            userId,
+            total: cartData.total,
+            services: cartData.services,
+            date: `${selectedDay.value} ${selectedTime.value}:00`
+        };
+        sendReservation(data).then(status => console.log(status));
+        console.log(data);
     }
 
     onMounted(() => {
@@ -151,7 +164,7 @@
                     </div>
                     <div class="action-bar d-flex mt-3">
                         <div class="price">{{ printTotal }} лв.</div>
-                        <button class="total">OK</button>
+                        <button class="total" @click="handleOk">OK</button>
                     </div>
                 </div>
             </div>
