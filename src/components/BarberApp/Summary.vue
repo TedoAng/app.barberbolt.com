@@ -2,6 +2,7 @@
     import { ref, onMounted } from 'vue'
     import { getReservations, sendReservation } from '@/services/barber-service'
     import Candy from '@/components/Candy.vue'
+    import Confirm from '@/components/Confirm.vue'
 
     const showDays = ref([]);
     const showTimes = ref([]);
@@ -16,6 +17,7 @@
     const reservations = ref({});
     const busyTimes = ref([]);
     const loading = ref(true);
+    const orderSuccess = ref(false);
 
     const getDays = ( length = 7 ) => {
         const dayNames = ['Нед', 'Пон', 'Вт', 'Ср', 'Чет', 'Пет', 'Съб'];
@@ -72,6 +74,8 @@
     }
 
     const handleOk = () => {
+        loading.value = true;
+        //collect cart items
         const cartData = JSON.parse(localStorage.getItem('cart'));
         const userId = localStorage.getItem('userID');
         const data = {
@@ -80,8 +84,11 @@
             services: cartData.services,
             date: `${selectedDay.value} ${selectedTime.value}:00`
         };
-        sendReservation(data).then(status => console.log(status));
-        console.log(data);
+        //send reservation to the api
+        sendReservation(data).then(status => {
+            if (status == 200) orderSuccess.value = true;
+            loading.value = false;
+        });
     }
 
     onMounted(() => {
@@ -164,13 +171,15 @@
                     </div>
                     <div class="action-bar d-flex mt-3">
                         <div class="price">{{ printTotal }} лв.</div>
-                        <button class="total" @click="handleOk">OK</button>
+                        <button v-if="selectedDay && selectedTime != '-' && selectedTime != 'зает'" class="total" @click="handleOk" :disabled="loading">OK</button>
+                        <button v-else class="total color-gray">OK</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <Candy v-if="loading"/>
+    <Confirm v-if="orderSuccess"/>
 </template>
 
 <style lang="scss" scoped>
@@ -322,7 +331,7 @@
             .total {
                 display: flex;
                 align-items: center;
-                background-color: #525252;
+                background-color: #E08D41;
                 padding: 5px 20px;
                 color: #FFF6E5;
                 border-top-right-radius: 30px;
@@ -331,11 +340,17 @@
                 font-weight: 600;
                 font-size: 1.2rem;
                 user-select: none;
-                &:active {
-                    filter: brightness(80%);
-                    transform: scale(1.03);
+                &:not(.color-gray) {
+                    &:active {
+                        filter: brightness(80%);
+                        transform: scale(1.03);
+                    }
                 }
             }
+            .total.color-gray {
+                background-color: #525252;
+            }
+            
         }
     }
     @media screen and (max-width: 320px) {
@@ -349,7 +364,7 @@
             padding: 5px !important;
         }
         p {
-            font-size: 1.2rem !important;
+            font-size: 1rem !important;
         }
         .hour {
             .whole {
@@ -368,6 +383,7 @@
         .action-bar {
             .price,
             .total {
+                font-weight: 400 !important;
                 padding: 12px !important;
                 font-size: 1rem !important;
                 white-space: nowrap;
