@@ -36,6 +36,7 @@ export const registerUser = async (data) => {
     try {
         const resp = await axios.post(`${barberURL}/register`, data, headers);
         if (resp.status === 200) {
+            console.log(resp);
             return resp.data.data.user.id;
         }
     } catch (error) {

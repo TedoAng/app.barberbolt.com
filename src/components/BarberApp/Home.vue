@@ -19,8 +19,7 @@
             password_confirmation: 'Pass2030'
         }
         registerUser(data).then(id => {
-            localStorage.setItem('userID', id);
-            localStorage.setItem('userData', JSON.stringify(user));
+            localStorage.setItem('userData', JSON.stringify({...user, userId: id}));
             router.push('/services');
         });
     }

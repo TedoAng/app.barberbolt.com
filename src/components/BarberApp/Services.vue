@@ -45,9 +45,8 @@
           loading.value = false;
         });
 
-        localStorage.getItem('cart') !== null ? 
-        cartServices.value = JSON.parse(localStorage.getItem('cart')).services :
-        cartServices.value = cartServices.value;
+        // localStorage.getItem('cart') !== null ? 
+        // cartServices.value = JSON.parse(localStorage.getItem('cart'))?.services : [];
     });
     
 </script>

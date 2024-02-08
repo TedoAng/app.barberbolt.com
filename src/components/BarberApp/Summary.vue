@@ -77,9 +77,9 @@
         loading.value = true;
         //collect cart items
         const cartData = JSON.parse(localStorage.getItem('cart'));
-        const userId = localStorage.getItem('userID');
+        const userData = JSON.parse(localStorage.getItem('userData'));
         const data = {
-            userId,
+            userId: userData.userId,
             total: cartData.total,
             services: cartData.services,
             date: `${selectedDay.value} ${selectedTime.value}:00`
@@ -88,6 +88,7 @@
         sendReservation(data).then(status => {
             if (status == 200) orderSuccess.value = true;
             loading.value = false;
+            localStorage.removeItem('cart');
         });
     }
 
