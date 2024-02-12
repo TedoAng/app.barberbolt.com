@@ -3,7 +3,9 @@
     import { getReservations, sendReservation } from '@/services/barber-service'
     import Candy from '@/components/Candy.vue'
     import Confirm from '@/components/Confirm.vue'
+    import { useRouter } from 'vue-router'
 
+    const router = useRouter();
     const showDays = ref([]);
     const showTimes = ref([]);
     const selectedDay = ref(null);
@@ -96,13 +98,18 @@
         getReservations().then(el => {
             reservations.value = el
             loading.value = false;
-        });
+        }).catch(error => console.log(error));
+
         showDays.value = getDays(20);
         showTimes.value = createTimes(10, 19, '17-18');
+
         const cartData = JSON.parse(localStorage.getItem('cart'));
+
         if (cartData) {
             printDescription.value = cartData.description.split('\n');
             printTotal.value = cartData.total;
+        } else {
+            router.push('/services');
         }
     });
 </script>

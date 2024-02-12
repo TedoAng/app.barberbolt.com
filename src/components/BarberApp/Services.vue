@@ -7,7 +7,7 @@
     
     
     const router = useRouter();
-    const user = ref({});
+    const user = ref(null);
     const services = ref([]);
     const cartServices = ref([]);
     const cart = ref({
@@ -39,14 +39,23 @@
     }
 
     onMounted(() => {
-        user.value = JSON.parse(localStorage.getItem('userData'));
-        getServices().then(response => {
-          services.value = response;
-          loading.value = false;
-        });
+        try {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            user.value = userData;
 
-        // localStorage.getItem('cart') !== null ? 
-        // cartServices.value = JSON.parse(localStorage.getItem('cart'))?.services : [];
+            if (user.value === null) {
+                router.push('/');
+                return;
+            }
+            
+            getServices().then(response => {
+                services.value = response;
+                loading.value = false;
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        
     });
     
 </script>
@@ -55,7 +64,7 @@
         <div class="welcome">
             <div class="d-flex px-3">
                 <p class="align-self-end pe-2">Здравей, </p>
-                <h3>{{user.given_name}}</h3>
+                <h3>{{user?.given_name}}</h3>
             </div>
             <div class="info rounded m-3 p-3">
                 <p class="hello">От тук можеш да избереш процедурите за да резервираш своя час</p>
@@ -79,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <button class="reserve position-absolute start-50 bottom-0 translate-middle-x my-3" @click="handleForwardBtn">НАПРЕД</button>
+            <button class="reserve position-absolute start-50 bottom-0 translate-middle-x mb-4" @click="handleForwardBtn">НАПРЕД</button>
         </div>
     </div>
     <Candy v-if="loading"/>
@@ -143,7 +152,7 @@
         overflow: scroll;
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 10px;
             .product {
                 padding: 5px;

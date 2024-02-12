@@ -1,5 +1,8 @@
 <script setup>
-import Svg from '@/assets/svg/index.js'
+    import Svg from '@/assets/svg/index.js'
+    import { useRouter } from 'vue-router'
+
+    const router = useRouter();
 </script>
 
 <template>
@@ -7,7 +10,7 @@ import Svg from '@/assets/svg/index.js'
         <div class="modal-body py-4">
             <div v-html="Svg.Confirm"></div>
             <h3 class="text-center mb-4">Вашата резервация е успешна!</h3>
-            <button class="reserve">НАПРЕД</button>
+            <button class="reserve" @click="router.push('/reservations')">НАПРЕД</button>
         </div>
     </div>
 </template>
