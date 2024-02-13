@@ -195,7 +195,6 @@
         font-family: "NotoSerifExtraCondensedBlackItalic", serif;
         font-size: 2rem;
         font-weight: 600;
-        
     }
     .hello {
         font-weight: 700;
@@ -257,7 +256,6 @@
         color: #E08D41 !important;
         background-color: #FFF6E5;
         border-radius: 6px;
-
     }
     .whole {
         display: flex;

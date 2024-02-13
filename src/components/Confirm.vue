@@ -40,17 +40,18 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: #5252525b;
+        background-color: rgba(82, 82, 82, 0.36);
         width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
         .modal-body {
-            background-color: #333;
+            background-color: rgba(51, 51, 51, 0.95);
             margin: 50px;
             padding: 10px;
             border-radius: 6px;
+            max-width: 991px;
             div {
                 width: 120px;
                 margin-inline: auto;

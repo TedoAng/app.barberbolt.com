@@ -1,14 +1,20 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import ReserveUnit from '../ReserveUnit.vue';
-import { getMyReservations } from '@/services/barber-service';
+import { ref, onMounted } from 'vue'
+import ReserveUnit from '../ReserveUnit.vue'
+import { getMyReservations } from '@/services/barber-service'
+import Candy from '@/components/Candy.vue'
 
 const user = ref(null);
+const loading = ref(true);
+const reservations = ref([]);
 
 onMounted(() => {
     const userData = JSON.parse(localStorage.getItem('userData'));
     user.value = userData;
-    getMyReservations(userData.userId).then((response) => console.log(response));
+    getMyReservations(userData.userId).then((response) => {
+        reservations.value = response;
+        loading.value = false;
+    });
 })
 
 </script>
@@ -17,15 +23,10 @@ onMounted(() => {
     <div  class="reservations-layout">
         <h5 class="px-2 hello">Резервации</h5>
         <div class="reservations-container m-2">
-            <ReserveUnit/>
-            <ReserveUnit/>
-            <ReserveUnit/>
-            <ReserveUnit/>
-            <ReserveUnit/>
-            <ReserveUnit/>
-            <ReserveUnit/>
+            <ReserveUnit v-for="reservation in reservations.sort(function(a,b){return new Date(a.reservation_dt) - new Date(b.reservation_dt)})" v-bind="reservation"/>
         </div>
     </div>
+    <Candy v-if="loading"/>
 </template>
 
 <style lang="scss">

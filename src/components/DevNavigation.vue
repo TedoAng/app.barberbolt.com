@@ -3,6 +3,7 @@
         <router-link to="/"><i class="fa-solid fa-house"></i></router-link>
         <router-link to="/services"><i class="fa-solid fa-gear"></i></router-link>
         <router-link to="/summary"><i class="fa-solid fa-list"></i></router-link>
+        <router-link to="/reservations"><i class="fa-solid fa-user"></i></router-link>
     </div>
 </template>
 <script>

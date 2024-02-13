@@ -1,10 +1,11 @@
 <script setup>
+const props = defineProps(['id', 'total', 'reservation_dt'])
 </script>
 
 <template>
     <div class="reserve-unit position-relative">
-        <div class="time position-absolute top-0 end-0">17:00</div>
-        <div class="date">24</div>
+        <div class="time position-absolute top-0 end-0">{{props.reservation_dt.split(' ')[1].slice(0, -3)}}</div>
+        <div class="date">{{props.reservation_dt.split(' ')[0].split('-')[2]}}</div>
         <div class="actions pt-3 px-3">
             <i class="fa-solid fa-trash"></i>
         </div>
@@ -33,6 +34,7 @@
             font-size: 1.2rem;
             color: #333;
             font-weight: 600;
+            user-select: none;
         }
         .date {
             background-color: #333;
@@ -42,7 +44,7 @@
             font-size: 4rem;
             font-weight: 700;
             border-radius: 10px;
-
+            user-select: none;
         }
         .plus {
             bottom: 0;
@@ -62,6 +64,9 @@
         .actions {
             width: fit-content;
             font-size: 1.5rem;
+            i {
+                pointer-events: none;
+            }
         }
     }
 </style>

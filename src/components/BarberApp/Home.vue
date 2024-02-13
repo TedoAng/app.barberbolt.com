@@ -117,10 +117,10 @@
         background-color: #E08D41;
         color: #FFF6E5;
         border-radius: 30px;
-        font-size: .9rem;
+        font-size: 1.2rem;
         font-weight: 600;
         width: fit-content;
-        padding: 8px 30px;
+        padding: 5px 20px;
         margin: auto;
         display: block;
         cursor: pointer;
