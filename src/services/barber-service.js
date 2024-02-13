@@ -52,3 +52,12 @@ export const sendReservation = async (data) => {
         return error;
     }
 };
+
+export const getMyReservations = async (userID) => {
+    try {
+        const resp = await axios.get(`${barberURL}/barber/my-reservations/${userID}`);
+        return resp.data;
+    } catch (error) {
+        return error;
+    }
+}

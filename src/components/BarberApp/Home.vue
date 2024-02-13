@@ -11,13 +11,25 @@
 
 
     const callback = (response) => {
-        const user = decodeCredential(response.credential);
-        const data = {
-            name: user.name,
-            email: user.email,
-            password: 'Pass2030',
-            password_confirmation: 'Pass2030'
+        let data = {};
+        let user = {given_name: 'Test'};
+        if (response === 'tedo') {
+            data = {
+                name: 'Test',
+                email: 'admin@tvangelov.com',
+                password: 'Pass2030',
+                password_confirmation: 'Pass2030'
+            }
+        } else {
+            user = decodeCredential(response.credential);
+            data = {
+                name: user.name,
+                email: user.email,
+                password: 'Pass2030',
+                password_confirmation: 'Pass2030'
+            }
         }
+        
         registerUser(data).then(id => {
             localStorage.setItem('userData', JSON.stringify({...user, userId: id}));
             router.push('/services');
@@ -57,7 +69,10 @@
                             Вход с Facebook
                         </button>
                     </a>
-                    <GoogleLogin :callback="callback" :buttonConfig="{shape: 'pill', theme: 'filled_blue'}"/>
+                    <div class="reserve mx-auto my-3" @click="callback('tedo')">
+                        Вход за Тест
+                    </div>
+                    <GoogleLogin :callback="callback" :buttonConfig="{shape: 'pill', theme: 'filled_blue', width: '167'}"/>
                 </div>
             </transition>
         </div>
@@ -102,12 +117,14 @@
         background-color: #E08D41;
         color: #FFF6E5;
         border-radius: 30px;
-        font-size: 1.2rem;
+        font-size: .9rem;
         font-weight: 600;
         width: fit-content;
-        padding: 5px 20px;
+        padding: 8px 30px;
         margin: auto;
         display: block;
+        cursor: pointer;
+        user-select: none;
         &:active {
             background-color: darken(#E08D41, 8%);
             color: #F3E0B8;
@@ -116,21 +133,8 @@
     }
     
     @media only screen and (max-width: 575px) {
-        .social-button {
-            button {
-                width: 200px;
-                font-size: 1rem;
-            }
-            i,
-            svg {
-                font-size: 1.5rem !important;
-                left: 8px !important;
-                top: 8px !important;
-            }
-            svg {
-                width: 34px !important;
-                height: 34px !important;
-            }
+        h1 {
+            font-size: 5rem;
         }
     }
     @media screen and (min-width: 992px) {

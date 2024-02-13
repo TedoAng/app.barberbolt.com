@@ -22,7 +22,7 @@
         min-width: 100px;
         padding: 5px;
         .time {
-            background-color: #333333b9;
+            background-color: #D9D9D9;
             border-top-right-radius: 10px;
             border-bottom-left-radius: 10px;
             display: flex;
@@ -31,6 +31,8 @@
             width: 40%;
             padding: 5px;
             font-size: 1.2rem;
+            color: #333;
+            font-weight: 600;
         }
         .date {
             background-color: #333;

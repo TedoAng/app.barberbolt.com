@@ -1,5 +1,16 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 import ReserveUnit from '../ReserveUnit.vue';
+import { getMyReservations } from '@/services/barber-service';
+
+const user = ref(null);
+
+onMounted(() => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    user.value = userData;
+    getMyReservations(userData.userId).then((response) => console.log(response));
+})
+
 </script>
 
 <template>
