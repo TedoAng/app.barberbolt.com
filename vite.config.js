@@ -25,16 +25,18 @@ export default defineConfig({
         manifest: {
         name: "BarberBolt",
         short_name: "BarberBolt",
-        start_url: ".",
+        start_url: "/",
         display: "standalone",
-        description: "Save your next barber visitation",
+        orientation: "portrait",
+        description: "barbershop booking app",
         theme_color: "#333",
+        background_color: "#333",
         icons: [
           {
             src: "/barberbolt512x512.png",
             sizes: "512x512",
             type: "image/png",
-            purpose: "any maskable"
+            purpose: "any"
           }
         ]
       }
