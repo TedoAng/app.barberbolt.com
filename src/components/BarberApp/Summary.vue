@@ -105,7 +105,7 @@
 
         const cartData = JSON.parse(localStorage.getItem('cart'));
 
-        if (cartData) {
+        if (cartData?.services.length > 0) {
             printDescription.value = cartData.description.split('\n');
             printTotal.value = cartData.total;
         } else {
@@ -117,9 +117,9 @@
 <template>
     <div class="summary-layout">
         <div class="date">
-            <h5 class="px-2 mb-2 hello">Резервация</h5>
+            <h5 class="px-2 my-2 hello">Резервация</h5>
             <h4 class="px-2 choose-date">Избери дата:</h4>
-            <div class="days rounded p-3 m-2 ">
+            <div class="days rounded p-2 m-2 ">
                 <div
                 v-for="day in showDays"
                 :class="{'select-day': `${day.year}-${day.month < 10 ? '0' + day.month : day.month}-${day.date < 10 ? '0' + day.date : day.date}` === selectedDay}"
@@ -255,7 +255,7 @@
     .select-day {
         color: #E08D41 !important;
         background-color: #FFF6E5;
-        border-radius: 6px;
+        border-radius: 20px;
     }
     .whole {
         display: flex;

@@ -21,7 +21,7 @@ onMounted(() => {
 
 <template>
     <div  class="reservations-layout">
-        <h5 class="px-2 hello">Резервации</h5>
+        <h5 class="px-2 my-2 hello">Резервации</h5>
         <div class="reservations-container m-2">
             <ReserveUnit v-for="reservation in reservations.sort(function(a,b){return new Date(a.reservation_dt) - new Date(b.reservation_dt)})" v-bind="reservation"/>
         </div>
@@ -32,7 +32,7 @@ onMounted(() => {
 <style lang="scss">
     .reservations-container {
         display: grid;
-        gap: 10px;
+        gap: 20px;
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
     .reservations-layout {
