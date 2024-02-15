@@ -33,6 +33,7 @@ onMounted(() => {
             v-for="reservation in reservations.sort(function(a,b){return new Date(a.reservation_dt) - new Date(b.reservation_dt)})" 
             v-bind="reservation"
             @handle-delete="handleDelete(reservation.id)"
+            :key="reservation.id"
             />
         </div>
     </div>

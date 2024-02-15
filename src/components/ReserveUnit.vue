@@ -1,26 +1,43 @@
 <script setup>
-import { uploadFile } from '@/services/barber-service'
-const props = defineProps(['id', 'total', 'reservation_dt'])
+    import { uploadFile } from '@/services/barber-service'
+    import { ref } from 'vue'
 
-const handleFileInput = (event) => {
-    console.log(event.target.files[0]);
-    uploadFile(event.target.files[0], props.id);
-}
+    const props = defineProps(['id', 'total', 'reservation_dt']);
+    const imageUrl = ref(null);
+    defineEmits(['handleDelete']);
+
+    const handleFileInput = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        uploadFile(event.target.files[0], props.id);
+
+        reader.onload = (event) => {
+            imageUrl.value = event.target.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
 
 </script>
 
 <template>
     <div class="reserve-unit position-relative">
         <div class="time position-absolute top-0 end-0">{{props.reservation_dt.split(' ')[1].slice(0, -3)}}</div>
-        <div class="date">{{props.reservation_dt.split(' ')[0].split('-')[2]}}</div>
+        <div v-if="!imageUrl" class="date">{{props.reservation_dt.split(' ')[0].split('-')[2]}}</div>
+        <div v-else class="date">
+            <img :src="imageUrl" alt="preview">
+        </div>
         <div class="actions pt-3 px-3" @click="$emit('handleDelete')">
             <i class="fa-solid fa-trash"></i>
         </div>
-        <label for="picture" class="plus position-absolute bottom-0 end-0">
+        <label :for="props.reservation_dt" class="plus position-absolute bottom-0 end-0">
             <i class="fa-solid fa-plus"></i>
         </label>
-        <input type="file" id="picture" name="picture" accept="image/png, image/jpeg" class="d-none" @change="handleFileInput"/>
+        <input type="file" :id="props.reservation_dt" name="picture" accept="image/png, image/jpeg" class="d-none" @change="handleFileInput"/>
     </div>
+    
 </template>
 
 <style lang="scss" scoped>
@@ -29,6 +46,7 @@ const handleFileInput = (event) => {
         border-radius: 10px;
         max-width: 200px;
         min-width: 100px;
+        max-height: 200px;
         padding: 5px;
         .time {
             background-color: #D9D9D9;
@@ -53,6 +71,10 @@ const handleFileInput = (event) => {
             font-weight: 700;
             border-radius: 10px;
             user-select: none;
+            img {
+                width: 100%;
+                height: 100%;
+            }
         }
         .plus {
             bottom: 0;
