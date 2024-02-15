@@ -20,6 +20,8 @@
     const busyTimes = ref([]);
     const loading = ref(true);
     const orderSuccess = ref(false);
+    const refDays = ref (null);
+    const refTimes = ref (null);
 
     const getDays = ( length = 7 ) => {
         const dayNames = ['Нед', 'Пон', 'Вт', 'Ср', 'Чет', 'Пет', 'Съб'];
@@ -94,10 +96,29 @@
         });
     }
 
+    const handleWheelDay = (event) => {
+        const scrollableContainer = refDays.value;
+        const delta = Math.sign(event.deltaY);
+        const scrollSpeed = 150;
+
+        
+        scrollableContainer.scrollLeft += delta * scrollSpeed;
+        event.preventDefault();
+    }
+
+    const handleWheelTime = (event) => {
+        const scrollableContainer = refTimes.value;
+        const delta = Math.sign(event.deltaY);
+        const scrollSpeed = 150;
+
+        
+        scrollableContainer.scrollLeft += delta * scrollSpeed;
+        event.preventDefault();
+    }
+
     onMounted(() => {
         getReservations().then(el => {
             reservations.value = el
-            loading.value = false;
         }).catch(error => console.log(error));
 
         showDays.value = getDays(20);
@@ -111,6 +132,8 @@
         } else {
             router.push('/services');
         }
+
+        loading.value = false;
     });
 </script>
 
@@ -119,7 +142,7 @@
         <div class="date">
             <h5 class="px-2 my-2 hello">Резервация</h5>
             <h4 class="px-2 choose-date">Избери дата:</h4>
-            <div class="days rounded p-2 m-2 ">
+            <div ref="refDays" class="days rounded p-2 m-2" @wheel.prevent="handleWheelDay">
                 <div
                 v-for="day in showDays"
                 :class="{'select-day': `${day.year}-${day.month < 10 ? '0' + day.month : day.month}-${day.date < 10 ? '0' + day.date : day.date}` === selectedDay}"
@@ -133,7 +156,7 @@
         </div>
         <div v-if="selectedDay" class="time mb-2">
             <h5 class="px-2 hello">Час</h5>
-            <div class="times">
+            <div ref="refTimes" class="times" @wheel.prevent="handleWheelTime">
                 <div v-for="time in showTimes" class="hour">
                     <div :class="{'select-whole': `${time}:00` === selectedTime}" class="whole" @click="handleSelectTime">
                         {{busyTimes.includes(`${time}:00:00`)? 'зает' : `${time}:00`}}
@@ -224,6 +247,7 @@
         }
     }
     .days {
+        scroll-behavior: smooth;
         background-color: #F3E0B8;
         height: calc(100% - 94px);
         overflow-x: scroll;
@@ -279,6 +303,7 @@
         height: 100%;
     }
     .times {
+        scroll-behavior: smooth;
         flex: 1;
         display: grid;
         grid-template-columns: repeat(auto-fit, 100px);

@@ -1,24 +1,18 @@
 <script setup>
-import { useRouter } from 'vue-router';
-import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router'
 
+const router = useRouter();
 
-    const router = useRouter();
-
-    const back = () => {
-        router.go(-1)
-    }
-
-    onMounted(() => {
-        // console.log('mounted');
-    });
+const back = () => {
+    router.go(-1)
+}
 
 </script>
 
 <template >
     <div class="nav d-flex justify-content-between">
         <i class="fa-solid fa-chevron-left" @click="back"></i>
-        <i class="fa-solid fa-bars" @click="$emit('hamburgerClick')"></i>
+        <i class="fa-solid fa-bars" @click="router.push('/reservations')"></i>
     </div>
 </template>
 

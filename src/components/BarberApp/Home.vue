@@ -1,7 +1,7 @@
 <script setup>
     import Logo from '@/assets/BarberBoltLogo.svg'
     import {ref, onMounted} from 'vue'
-    import { GoogleLogin, decodeCredential, googleLogout } from 'vue3-google-login'
+    import { GoogleLogin, decodeCredential } from 'vue3-google-login'
     import { useRouter } from 'vue-router';
     import { registerUser } from '@/services/barber-service'
     

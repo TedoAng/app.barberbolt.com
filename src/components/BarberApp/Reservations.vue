@@ -3,10 +3,16 @@ import { ref, onMounted } from 'vue'
 import ReserveUnit from '../ReserveUnit.vue'
 import { getMyReservations } from '@/services/barber-service'
 import Candy from '@/components/Candy.vue'
+import { deleteReservationID } from '@/services/barber-service'
 
 const user = ref(null);
 const loading = ref(true);
 const reservations = ref([]);
+
+const handleDelete = (id) => {
+    deleteReservationID(id);
+    reservations.value = reservations.value.filter(el => el.id !== id);
+}
 
 onMounted(() => {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -23,7 +29,11 @@ onMounted(() => {
     <div  class="reservations-layout">
         <h5 class="px-2 my-2 hello">Резервации</h5>
         <div class="reservations-container m-2">
-            <ReserveUnit v-for="reservation in reservations.sort(function(a,b){return new Date(a.reservation_dt) - new Date(b.reservation_dt)})" v-bind="reservation"/>
+            <ReserveUnit 
+            v-for="reservation in reservations.sort(function(a,b){return new Date(a.reservation_dt) - new Date(b.reservation_dt)})" 
+            v-bind="reservation"
+            @handle-delete="handleDelete(reservation.id)"
+            />
         </div>
     </div>
     <Candy v-if="loading"/>

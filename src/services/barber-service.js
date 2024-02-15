@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const barberURL = 'https://api.barberbolt.com/api';
-const headers = {
+let headers = {
     'content-type': 'application/vnd.api+json',
     'accept': 'application/vnd.api+json'
 };
@@ -61,3 +61,32 @@ export const getMyReservations = async (userID) => {
         return error;
     }
 }
+
+export const deleteReservationID = async (ID) => {
+    try {
+        const resp = await axios.delete(`${barberURL}/resource/orders/${ID}`, headers);
+        if (resp.status === 200) {
+            console.log(resp.data);
+            return resp.data;
+        }
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
+};
+
+export const uploadFile = async (file, id) => {
+    console.log('id', id);
+    let data = new FormData();
+    data.append('file', file);
+    data.append('orderId', id);
+    try {
+        const resp = await axios.post(`http://127.0.0.1:8000/api/upload`, data);
+        console.log(resp);
+        return resp.data;
+
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
+};

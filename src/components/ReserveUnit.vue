@@ -1,17 +1,25 @@
 <script setup>
+import { uploadFile } from '@/services/barber-service'
 const props = defineProps(['id', 'total', 'reservation_dt'])
+
+const handleFileInput = (event) => {
+    console.log(event.target.files[0]);
+    uploadFile(event.target.files[0], props.id);
+}
+
 </script>
 
 <template>
     <div class="reserve-unit position-relative">
         <div class="time position-absolute top-0 end-0">{{props.reservation_dt.split(' ')[1].slice(0, -3)}}</div>
         <div class="date">{{props.reservation_dt.split(' ')[0].split('-')[2]}}</div>
-        <div class="actions pt-3 px-3">
+        <div class="actions pt-3 px-3" @click="$emit('handleDelete')">
             <i class="fa-solid fa-trash"></i>
         </div>
-        <div class="plus position-absolute bottom-0 end-0">
+        <label for="picture" class="plus position-absolute bottom-0 end-0">
             <i class="fa-solid fa-plus"></i>
-        </div>
+        </label>
+        <input type="file" id="picture" name="picture" accept="image/png, image/jpeg" class="d-none" @change="handleFileInput"/>
     </div>
 </template>
 
@@ -64,6 +72,7 @@ const props = defineProps(['id', 'total', 'reservation_dt'])
         .actions {
             width: fit-content;
             font-size: 1.5rem;
+            cursor: pointer;
             i {
                 pointer-events: none;
             }
