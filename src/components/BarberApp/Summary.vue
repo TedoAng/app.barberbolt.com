@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, onMounted } from 'vue'
+    import { ref, onMounted, onBeforeMount } from 'vue'
     import { getReservations, sendReservation } from '@/services/barber-service'
     import Candy from '@/components/Candy.vue'
     import Confirm from '@/components/Confirm.vue'
@@ -116,9 +116,10 @@
         event.preventDefault();
     }
 
-    onMounted(() => {
+    onBeforeMount(() => {
         getReservations().then(el => {
-            reservations.value = el
+            reservations.value = el;
+            loading.value = false;
         }).catch(error => console.log(error));
 
         showDays.value = getDays(20);
@@ -133,7 +134,7 @@
             router.push('/services');
         }
 
-        loading.value = false;
+        
     });
 </script>
 
