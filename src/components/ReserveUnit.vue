@@ -2,8 +2,9 @@
     import { uploadFile } from '@/services/barber-service'
     import { ref } from 'vue'
 
-    const props = defineProps(['id', 'total', 'reservation_dt']);
+    const props = defineProps(['id', 'total', 'reservation_dt', 'image']);
     const imageUrl = ref(null);
+    const currentHost = ref(import.meta.env.VITE_DOMAIN);
     defineEmits(['handleDelete']);
 
     const handleFileInput = (event) => {
@@ -25,7 +26,12 @@
 <template>
     <div class="reserve-unit position-relative">
         <div class="time position-absolute top-0 end-0">{{props.reservation_dt.split(' ')[1].slice(0, -3)}}</div>
-        <div v-if="!imageUrl" class="date">{{props.reservation_dt.split(' ')[0].split('-')[2]}}</div>
+        <div v-if="props.image" class="date">
+            <img :src="`${currentHost}/storage/${props.image}`" alt="preview">
+        </div>
+        <div v-else-if="!imageUrl" class="date">
+            {{props.reservation_dt.split(' ')[0].split('-')[2]}}
+        </div>
         <div v-else class="date">
             <img :src="imageUrl" alt="preview">
         </div>
@@ -37,7 +43,6 @@
         </label>
         <input type="file" :id="props.reservation_dt" name="picture" accept="image/png, image/jpeg" class="d-none" @change="handleFileInput"/>
     </div>
-    
 </template>
 
 <style lang="scss" scoped>
@@ -46,7 +51,6 @@
         border-radius: 10px;
         max-width: 200px;
         min-width: 100px;
-        max-height: 200px;
         padding: 5px;
         .time {
             background-color: #D9D9D9;
@@ -71,9 +75,12 @@
             font-weight: 700;
             border-radius: 10px;
             user-select: none;
+            height: 96px;
+            overflow: hidden;
             img {
                 width: 100%;
                 height: 100%;
+                object-fit: cover;
             }
         }
         .plus {

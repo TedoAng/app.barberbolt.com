@@ -45,6 +45,7 @@
     }
 
     onMounted(() => {
+        localStorage.removeItem('userData');
         localStorage.getItem('userData') ? loggedIn.value = true : false;
     });
 </script>

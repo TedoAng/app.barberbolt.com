@@ -1,6 +1,6 @@
 import axios from "axios";
 
-
+// const barberURL = 'http://127.0.0.1:8000/api';
 const barberURL = 'https://api.barberbolt.com/api';
 let headers = {
     'content-type': 'application/vnd.api+json',
@@ -76,13 +76,11 @@ export const deleteReservationID = async (ID) => {
 };
 
 export const uploadFile = async (file, id) => {
-    console.log('id', id);
     let data = new FormData();
     data.append('file', file);
     data.append('orderId', id);
     try {
-        const resp = await axios.post(`http://127.0.0.1:8000/api/upload`, data);
-        console.log(resp);
+        const resp = await axios.post(`${barberURL}/upload`, data);
         return resp.data;
 
     } catch (error) {
