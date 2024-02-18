@@ -185,7 +185,7 @@
             max-width: 991px;
             height: 100vh;
             padding: 20px;
-            background-color: rgba(255,246,229, 0.338);
+            background-color: rgba(82, 82, 82, 0.9);
             z-index: 10;
             .picture {
                 height: 50dvh;
