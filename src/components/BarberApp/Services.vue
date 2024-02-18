@@ -138,6 +138,9 @@
         padding: 5px 20px;
         margin: auto;
         display: block;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
         &:active {
             background-color: darken(#E08D41, 8%);
             color: #F3E0B8;
@@ -161,6 +164,8 @@
                 font-size: 0.9rem;
                 cursor: pointer;
                 user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
                 div {
                     width: 80px;
                     margin-inline: auto;

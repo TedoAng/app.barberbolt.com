@@ -20,10 +20,5 @@
 </template>
 
 <style lang="scss" scoped>
-    .app {
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
 </style>
 

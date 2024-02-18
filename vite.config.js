@@ -33,10 +33,16 @@ export default defineConfig({
         background_color: "#333",
         icons: [
           {
-            src: "/barberbolt512x512.png",
+            src: "/barberbolt-any.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any"
+          },
+          {
+            src: "/barberbolt-mascable.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "mascable"
           }
         ]
       }

@@ -126,6 +126,8 @@
         display: block;
         cursor: pointer;
         user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
         &:active {
             background-color: darken(#E08D41, 8%);
             color: #F3E0B8;

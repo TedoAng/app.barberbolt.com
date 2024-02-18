@@ -27,7 +27,7 @@ onMounted(() => {
 
 <template>
     <div  class="reservations-layout">
-        <h5 class="px-2 my-2 hello">Резервации</h5>
+        <h5 class="px-2 my-2 hello">Мойте резервации</h5>
         <div class="reservations-container m-2">
             <ReserveUnit 
             v-for="reservation in reservations.sort(function(a,b){return new Date(a.reservation_dt) - new Date(b.reservation_dt)})" 

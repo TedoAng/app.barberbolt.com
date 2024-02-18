@@ -265,6 +265,8 @@
         display: inline-block;
         cursor: pointer;
         user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
         p {
             height: 50%;
             text-align: center;
@@ -293,6 +295,8 @@
         font-size: 1.4rem;
         cursor: pointer;
         user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
     }
     .select-whole {
         background-color: #E08D41 !important;
@@ -359,6 +363,8 @@
                 font-size: 1.2rem;
                 line-height: 1rem;
                 user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
             }
             .total {
                 display: flex;
@@ -372,6 +378,8 @@
                 font-weight: 600;
                 font-size: 1.2rem;
                 user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
                 &:not(.color-gray) {
                     &:active {
                         filter: brightness(80%);
