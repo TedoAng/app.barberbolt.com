@@ -44,9 +44,53 @@
         }
     }
 
+    const logInWithFacebook = async() => {
+    window.FB.login(function(response) {
+            if (response.authResponse) {
+                window.FB.api('/me', {fields: 'name,email'}, (user) => {
+                    const data = {
+                        name: user.name.split(' ')[0],
+                        email: user.email,
+                        password: 'Pass2030',
+                        password_confirmation: 'Pass2030'
+                    }
+                    registerUser(data).then(id => {
+                    localStorage.setItem('userData', JSON.stringify({...user, userId: id, given_name: user.name.split(' ')[0]}));
+                        router.push('/services');
+                    });
+                })
+            }
+        }
+    )};
+
+    const initFacebook = async() => {
+      window.fbAsyncInit = function() {
+        window.FB.init({
+          appId: import.meta.env.VITE_FACEBOOK_APP_ID, //You will need to change this
+          cookie: true, // This is important, it's not enabled by default
+          version: 'v19.0'
+        });
+      };
+    }
+
+    const loadFacebookSDK = async (d, s, id) => {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }
+  
+    
     onMounted(() => {
         localStorage.removeItem('userData');
         localStorage.getItem('userData') ? loggedIn.value = true : false;
+        loadFacebookSDK(document, "script", "facebook-jssdk");
+        initFacebook();
     });
 </script>
 
@@ -70,10 +114,14 @@
                             Вход с Facebook
                         </button>
                     </a>
-                    <div class="reserve mx-auto my-3" @click="callback('tedo')">
+                    <div class="reserve w-100 my-3 text-center" @click="callback('tedo')">
                         Вход за Тест
                     </div>
                     <GoogleLogin :callback="callback" :buttonConfig="{shape: 'pill', theme: 'filled_blue', width: '167'}"/>
+                    
+                    <div class="reserve w-100 my-2 text-center fb-btn position-relative" @click="logInWithFacebook">
+                        <i class="fa-brands fa-facebook-f"></i> Вход с Facebook
+                    </div>
                 </div>
             </transition>
         </div>
@@ -118,20 +166,48 @@
         background-color: #E08D41;
         color: #FFF6E5;
         border-radius: 30px;
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 600;
-        width: fit-content;
+        height: 40px;
         padding: 5px 20px;
         margin: auto;
         display: block;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         user-select: none;
         -webkit-user-select: none;
         -moz-user-select: none;
-        &:active {
-            background-color: darken(#E08D41, 8%);
-            color: #F3E0B8;
-            scale: 1.03;
+        &:active,
+        &:hover {
+            background-color: #e2a062;
+        }
+    }
+    .fb-btn {
+        background-color: #4768B1;
+        font-size: 0.85rem;
+        font-weight: 400;
+        font-family: "Google Sans",arial,sans-serif;
+        height: 40px;
+        padding: 0;
+        padding-left: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        i {
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding: 10.5px 15px;
+            font-size: 1.1rem;
+        }
+        &:active,
+        &:hover {
+            background-color: #5c78b6;
         }
     }
     

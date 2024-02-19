@@ -3,8 +3,10 @@ import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import { VitePWA } from 'vite-plugin-pwa'
 import path from 'path';
+import mkcert from 'vite-plugin-mkcert'
 
 export default defineConfig({
+  server: { https: true },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src')
@@ -13,6 +15,7 @@ export default defineConfig({
   plugins: [
     vue(), 
     svgLoader(),
+    mkcert(),
     VitePWA({
         registerType: 'autoUpdate',
         devOptions: {

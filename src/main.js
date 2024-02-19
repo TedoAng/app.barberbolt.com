@@ -1,10 +1,10 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import vue3GoogleLogin from 'vue3-google-login'
-import App from './App.vue'
-import { createRouter, createWebHistory } from 'vue-router'
-import routes from '@/routes'
-import './scss/styles.scss'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import vue3GoogleLogin from 'vue3-google-login';
+import App from './App.vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import routes from '@/routes';
+import './scss/styles.scss';
 
 const router = createRouter({
     history: createWebHistory(),
