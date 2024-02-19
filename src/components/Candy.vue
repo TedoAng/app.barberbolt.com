@@ -20,6 +20,7 @@
   <!-- 			<div class="ball"></div> -->
           </div>
       </div>
+      <p class="mb-0">Зареждане...</p>
     </div>
   </div>
 </template>
@@ -37,8 +38,21 @@
     justify-content: center;
   }
   .unit {
-    padding: 0 60px;
-    transform: scale(.6);
+    width: 300px;
+    height: 300px;
+    background-color: rgb(222,226,230, 0.8);
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(.5);
+    p {
+      position: absolute;
+      bottom: -4rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
   }
   .shadow {
     width: 80px;

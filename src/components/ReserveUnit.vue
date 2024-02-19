@@ -179,9 +179,10 @@
         }
         .preview-modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100dvw;
             max-width: 991px;
             height: 100vh;
             padding: 20px;
@@ -191,6 +192,9 @@
                 height: 50dvh;
                 .date {
                     height: 100%;
+                }
+                img {
+                    object-fit: contain;
                 }
             }
             .order-description {
