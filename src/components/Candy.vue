@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
   .candy-loading {
     position: absolute;
     top: 0;

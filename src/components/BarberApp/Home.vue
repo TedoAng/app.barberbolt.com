@@ -44,46 +44,46 @@
         }
     }
 
-    const logInWithFacebook = async() => {
-    window.FB.login(function(response) {
-            if (response.authResponse) {
-                window.FB.api('/me', {fields: 'name,email'}, (user) => {
-                    const data = {
-                        name: user.name.split(' ')[0],
-                        email: user.email,
-                        password: 'Pass2030',
-                        password_confirmation: 'Pass2030'
-                    }
-                    registerUser(data).then(id => {
-                    localStorage.setItem('userData', JSON.stringify({...user, userId: id, given_name: user.name.split(' ')[0]}));
-                        router.push('/services');
-                    });
-                })
-            }
-        }
-    )};
+    // const logInWithFacebook = async() => {
+    // window.FB.login(function(response) {
+    //         if (response.authResponse) {
+    //             window.FB.api('/me', {fields: 'name,email'}, (user) => {
+    //                 const data = {
+    //                     name: user.name.split(' ')[0],
+    //                     email: user.email,
+    //                     password: 'Pass2030',
+    //                     password_confirmation: 'Pass2030'
+    //                 }
+    //                 registerUser(data).then(id => {
+    //                 localStorage.setItem('userData', JSON.stringify({...user, userId: id, given_name: user.name.split(' ')[0]}));
+    //                     router.push('/services');
+    //                 });
+    //             })
+    //         }
+    //     }
+    // )};
 
-    const initFacebook = async() => {
-      window.fbAsyncInit = function() {
-        window.FB.init({
-          appId: import.meta.env.VITE_FACEBOOK_APP_ID, //You will need to change this
-          cookie: true, // This is important, it's not enabled by default
-          version: 'v19.0'
-        });
-      };
-    }
+    // const initFacebook = async() => {
+    //   window.fbAsyncInit = function() {
+    //     window.FB.init({
+    //       appId: import.meta.env.VITE_FACEBOOK_APP_ID, //You will need to change this
+    //       cookie: true, // This is important, it's not enabled by default
+    //       version: 'v19.0'
+    //     });
+    //   };
+    // }
 
-    const loadFacebookSDK = async (d, s, id) => {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-        return;
-      }
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }
+    // const loadFacebookSDK = async (d, s, id) => {
+    //   var js,
+    //     fjs = d.getElementsByTagName(s)[0];
+    //   if (d.getElementById(id)) {
+    //     return;
+    //   }
+    //   js = d.createElement(s);
+    //   js.id = id;
+    //   js.src = "https://connect.facebook.net/en_US/sdk.js";
+    //   fjs.parentNode.insertBefore(js, fjs);
+    // }
   
     
     onMounted(() => {
@@ -118,8 +118,7 @@
                         Вход за Тест
                     </div>
                     <GoogleLogin :callback="callback" :buttonConfig="{shape: 'pill', theme: 'filled_blue', width: '167'}"/>
-                    
-                    <div class="reserve w-100 my-2 text-center fb-btn position-relative" @click="logInWithFacebook">
+                    <div class="reserve w-100 my-2 text-center fb-btn position-relative d-none" @click="logInWithFacebook">
                         <i class="fa-brands fa-facebook-f"></i> Вход с Facebook
                     </div>
                 </div>
