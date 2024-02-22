@@ -34,18 +34,40 @@ export default defineConfig({
         description: "barbershop booking app",
         theme_color: "#333",
         background_color: "#333",
+        id: "barberbolt",
+        launch_handler: {
+          client_mode: ["navigate-existing", "auto"]
+        },
+        display_override: ["window-controls-overlay"],
         icons: [
           {
             src: "/barberbolt-any.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any"
+          }
+        ],
+        screenshots: [
+          {
+            src: "/screenshots/home.png",
+            sizes: "1170x2532",
+            type: "image/png",
+            platform: "wide"
           },
           {
-            src: "/barberbolt-mascable.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "mascable"
+            src: "/screenshots/reservations.png",
+            sizes: "1170x2532",
+            type: "image/png"
+          },
+          {
+            src: "/screenshots/services.png",
+            sizes: "1170x2532",
+            type: "image/png"
+          },
+          {
+            src: "/screenshots/summary.png",
+            sizes: "1170x2532",
+            type: "image/png"
           }
         ]
       }
