@@ -1,5 +1,5 @@
-@import "node_modules/bootstrap/scss/bootstrap";
-* ,
+@import 'node_modules/bootstrap/scss/bootstrap';
+*,
 html {
     margin: 0;
     padding: 0;
@@ -7,8 +7,19 @@ html {
 }
 body {
     background-color: #333;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: antiquewhite;
+}
+*::-webkit-scrollbar {
+    width: 5px;
+}
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.7);
+    border-radius: 20px;
+    border: transparent;
 }
 @font-face {
     font-family: 'NotoSerifCBlack';

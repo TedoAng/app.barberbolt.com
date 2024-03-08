@@ -111,7 +111,7 @@
             align-items: center;
             width: 50%;
             padding: 5px;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #333;
             font-weight: 600;
             user-select: none;
