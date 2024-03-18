@@ -186,7 +186,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="selectedDay" class="time mb-2">
+        <div v-if="selectedDay" class="time mb-2 ms-2">
             <h5 class="px-2 hello">Час</h5>
             <div ref="refTimes" class="times" @wheel.prevent="handleWheelTime">
                 <div v-for="time in showTimes" class="hour" :class="{'select-hour': time === selectedTime}" @click="handleSelectTime">
@@ -194,14 +194,11 @@
                 </div>
             </div>
         </div>
-        <div v-else class="time mb-2">
+        <div v-else class="time mb-2 ms-2">
             <h5 class="px-2 hello">Час</h5>
             <div class="times">
-                <div v-for="time in 10" class="hour">
-                    <div :class="{'select-whole': `${time}:00` === selectedTime}" class="whole">
-                        - -
-                    </div>
-                    <div :class="{'select-whole': `${time}:30` === selectedTime}" class="whole">
+                <div v-for="time in 20" class="hour">
+                    <div class="whole">
                         - -
                     </div>
                 </div>
@@ -311,6 +308,7 @@
         border-radius: 20px;
     }
     .hour {
+        min-width: 100px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -324,15 +322,20 @@
         -webkit-user-select: none;
         -moz-user-select: none;
     }
-    .select-whole {
+    .select-hour {
         background-color: #E08D41 !important;
     }
     .times {
         display: grid;
-        grid-template-columns: repeat(auto-fit, 100px);
-        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fill, 100px);
+        grid-template-rows: auto auto;
+        gap: 10px;
+        grid-auto-flow: column;
+        overflow-x: scroll;
         height: 100%;
-        overflow: scroll;
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
     .orange {
         background-color: #E08D41;

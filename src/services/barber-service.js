@@ -2,7 +2,8 @@ import axios from "axios";
 
 // const barberURL = 'http://127.0.0.1:8000/api';
 // const barberURL = 'https://api.barberbolt.com/api';
-const barberURL = 'http://api.barber/api';
+// const barberURL = 'http://api.barber/api';
+const barberURL = 'http://public.test/api';
 let headers = {
     'content-type': 'application/vnd.api+json',
     'accept': 'application/vnd.api+json'
