@@ -1,6 +1,6 @@
 <script setup>
     import { ref, onMounted, onBeforeMount } from 'vue'
-    import { getReservations, sendReservation } from '@/services/barber-service'
+    import { getReservations, sendReservation, getHours } from '@/services/barber-service'
     import Candy from '@/components/Candy.vue'
     import Confirm from '@/components/Confirm.vue'
     import { useRouter } from 'vue-router'
@@ -50,7 +50,11 @@
         return result;
     }
 
-    const createTimes = (from, to, lunch = '0-0') => {
+    const createTimes = async (lunch = '0-0') => {
+        const resp = await getHours(18);
+        const { open_time, close_time } = resp.filter(day => day.day.includes(printDate.value.day))[0];
+        const from = parseInt(open_time.split(':')[0]);
+        const to = parseInt(close_time.split(':')[0]);
         const arr = [];
   		let curr = from;
         const arrLunch = lunch.split('-');
@@ -65,7 +69,37 @@
         return arr;
     }
 
+    const createTimesNew = async() => {
+        const resp = await getHours(18);
+        const { open_time, close_time } = await resp.filter(day => day.day.includes('Вт'))[0];
+        //From
+        const [fromH, fromM] = open_time.split(':');
+        const dateFrom = new Date();
+        dateFrom.setHours(parseInt(fromH));
+        dateFrom.setMinutes(parseInt(fromM));
+        //To
+        const [toH, toM] = close_time.split(':');
+        const dateTo = new Date();
+        dateTo.setHours(parseInt(toH));
+        dateTo.setMinutes(parseInt(toM));
+
+        const arr = [];
+        
+        while (dateFrom <= dateTo) {
+            arr.push(dateFrom.toLocaleTimeString("en-UK", { hour: "2-digit", minute: "2-digit" }))
+            dateFrom.setMinutes(dateFrom.getMinutes() + 30);
+        }
+
+        return arr;
+    }
+
     const handleSelectDay = (event) => {
+        loading.value = true;
+        createTimesNew().then(res => {
+            console.log(res);
+            showTimes.value = res;
+            loading.value = false;
+        });
         printDate.value.day = event.target.children[0].textContent;
         printDate.value.date = event.target.children[1].textContent;
         selectedDay.value = event.target.getAttribute("data-date");
@@ -123,7 +157,6 @@
         }).catch(error => console.log(error));
 
         showDays.value = getDays(20);
-        showTimes.value = createTimes(10, 19, '17-18');
 
         const cartData = JSON.parse(localStorage.getItem('cart'));
 
@@ -133,8 +166,6 @@
         } else {
             router.push('/services');
         }
-
-        
     });
 </script>
 
@@ -143,7 +174,7 @@
         <div class="date">
             <h5 class="px-2 my-2 hello">Резервация</h5>
             <h4 class="px-2 choose-date">Избери дата:</h4>
-            <div ref="refDays" class="days rounded p-2 m-2" @wheel.prevent="handleWheelDay">
+            <div ref="refDays" class="days rounded rounded-end-0 p-2 m-2 me-0" @wheel.prevent="handleWheelDay">
                 <div
                 v-for="day in showDays"
                 :class="{'select-day': `${day.year}-${day.month < 10 ? '0' + day.month : day.month}-${day.date < 10 ? '0' + day.date : day.date}` === selectedDay}"
@@ -158,20 +189,15 @@
         <div v-if="selectedDay" class="time mb-2">
             <h5 class="px-2 hello">Час</h5>
             <div ref="refTimes" class="times" @wheel.prevent="handleWheelTime">
-                <div v-for="time in showTimes" class="hour">
-                    <div :class="{'select-whole': `${time}:00` === selectedTime}" class="whole" @click="handleSelectTime">
-                        {{busyTimes.includes(`${time}:00:00`)? 'зает' : `${time}:00`}}
-                    </div>
-                    <div :class="{'select-whole': `${time}:30` === selectedTime}" class="whole" @click="handleSelectTime">
-                        {{busyTimes.includes(`${time}:30:00`)? 'зает' : `${time}:30`}}
-                    </div>
+                <div v-for="time in showTimes" class="hour" :class="{'select-hour': time === selectedTime}" @click="handleSelectTime">
+                    {{busyTimes.includes(`${time}:00`)? 'зает' : time}}
                 </div>
             </div>
         </div>
         <div v-else class="time mb-2">
             <h5 class="px-2 hello">Час</h5>
             <div class="times">
-                <div v-for="time in showTimes" class="hour">
+                <div v-for="time in 10" class="hour">
                     <div :class="{'select-whole': `${time}:00` === selectedTime}" class="whole">
                         - -
                     </div>
@@ -284,7 +310,7 @@
         background-color: #FFF6E5;
         border-radius: 20px;
     }
-    .whole {
+    .hour {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -301,25 +327,12 @@
     .select-whole {
         background-color: #E08D41 !important;
     }
-    .hour {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 100px);
-        gap: 5px;
-        height: 100%;
-    }
     .times {
-        scroll-behavior: smooth;
-        flex: 1;
         display: grid;
         grid-template-columns: repeat(auto-fit, 100px);
-        grid-auto-flow: column;
-        gap: 5px;
-        overflow-x: scroll;
-        white-space: nowrap;
-        margin-left: 5px;
-        &::-webkit-scrollbar {
-            display: none;
-        }
+        grid-template-rows: repeat(2, 1fr);
+        height: 100%;
+        overflow: scroll;
     }
     .orange {
         background-color: #E08D41;

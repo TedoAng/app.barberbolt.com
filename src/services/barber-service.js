@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // const barberURL = 'http://127.0.0.1:8000/api';
-const barberURL = 'https://api.barberbolt.com/api';
+// const barberURL = 'https://api.barberbolt.com/api';
+const barberURL = 'http://api.barber/api';
 let headers = {
     'content-type': 'application/vnd.api+json',
     'accept': 'application/vnd.api+json'
@@ -83,6 +84,16 @@ export const uploadFile = async (file, id) => {
         const resp = await axios.post(`${barberURL}/upload`, data);
         return resp.data;
 
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
+};
+
+export const getHours = async (store) => {
+    try {
+        const resp = await axios.get(`${barberURL}/resource/stores/${store}/open-hours`);
+        return resp.data;
     } catch (error) {
         console.log(error);
         return error;
