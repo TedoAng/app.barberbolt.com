@@ -87,7 +87,6 @@
   
     
     onMounted(() => {
-        localStorage.removeItem('userData');
         localStorage.getItem('userData') ? loggedIn.value = true : false;
         // loadFacebookSDK(document, "script", "facebook-jssdk");
         // initFacebook();

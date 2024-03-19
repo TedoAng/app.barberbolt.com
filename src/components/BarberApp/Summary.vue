@@ -69,7 +69,7 @@
         return arr;
     }
 
-    const createTimesNew = async() => {
+    const createTimesNew = async(setBreak = '0-0') => {
         const resp = await getHours(18);
         const { open_time, close_time } = await resp.filter(day => day.day.includes(printDate.value.day))[0];
         //From
@@ -82,21 +82,33 @@
         const dateTo = new Date();
         dateTo.setHours(parseInt(toH));
         dateTo.setMinutes(parseInt(toM));
+        //Break
+        const [breakFrom, breakTo] = setBreak.split('-');
+        const breakTimeFrom = new Date();
+        const breakTimeTo = new Date();
+        breakTimeFrom.setHours(parseInt(breakFrom));
+        breakTimeFrom.setMinutes(parseInt(0));
+        breakTimeTo.setHours(parseInt(breakTo));
+        breakTimeTo.setMinutes(parseInt(0));
 
         const arr = [];
         
         while (dateFrom <= dateTo) {
+            if (dateFrom >= breakTimeFrom && dateFrom < breakTimeTo) {
+                dateFrom.setMinutes(dateFrom.getMinutes() + 30);
+                continue;
+            }
             arr.push(dateFrom.toLocaleTimeString("en-UK", { hour: "2-digit", minute: "2-digit" }))
             dateFrom.setMinutes(dateFrom.getMinutes() + 30);
         }
 
+        arr.pop();
         return arr;
     }
 
     const handleSelectDay = (event) => {
         loading.value = true;
         createTimesNew().then(res => {
-            console.log(res);
             showTimes.value = res;
             loading.value = false;
         });
@@ -186,17 +198,17 @@
                 </div>
             </div>
         </div>
-        <div v-if="selectedDay" class="time mb-2 ms-2">
+        <div v-if="selectedDay" class="time mb-2">
             <h5 class="px-2 hello">Час</h5>
-            <div ref="refTimes" class="times" @wheel.prevent="handleWheelTime">
+            <div ref="refTimes" class="times ms-2" @wheel.prevent="handleWheelTime">
                 <div v-for="time in showTimes" class="hour" :class="{'select-hour': time === selectedTime}" @click="handleSelectTime">
                     {{busyTimes.includes(`${time}:00`)? 'зает' : time}}
                 </div>
             </div>
         </div>
-        <div v-else class="time mb-2 ms-2">
+        <div v-else class="time mb-2">
             <h5 class="px-2 hello">Час</h5>
-            <div class="times">
+            <div class="times ms-2">
                 <div v-for="time in 20" class="hour">
                     <div class="whole">
                         - -
