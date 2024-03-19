@@ -71,7 +71,7 @@
 
     const createTimesNew = async() => {
         const resp = await getHours(18);
-        const { open_time, close_time } = await resp.filter(day => day.day.includes('Вт'))[0];
+        const { open_time, close_time } = await resp.filter(day => day.day.includes(printDate.value.day))[0];
         //From
         const [fromH, fromM] = open_time.split(':');
         const dateFrom = new Date();
