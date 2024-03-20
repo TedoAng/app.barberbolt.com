@@ -1,18 +1,23 @@
 <script setup>
-    import { uploadFile } from '@/services/barber-service'
-    import { ref } from 'vue'
+    import { uploadFile } from '@/services/barber-service';
+    import Candy from '@/components/Candy.vue';
+    import { ref } from 'vue';
 
     const props = defineProps(['id', 'total', 'reservation_dt', 'image', 'services']);
     const imageUrl = ref(null);
     const dropdownShow = ref(false);
     const modalShow = ref(false);
+    const loading = ref(false);
     const currentHost = ref(import.meta.env.VITE_DOMAIN);
     defineEmits(['handleDelete']);
 
     const handleFileInput = (event) => {
+        loading.value = true;
         const file = event.target.files[0];
         const reader = new FileReader();
-        uploadFile(event.target.files[0], props.id);
+        uploadFile(event.target.files[0], props.id)
+        .then(el => loading.value = false)
+        .catch(err => console.log(err));
 
         reader.onload = (event) => {
             imageUrl.value = event.target.result;
@@ -92,6 +97,7 @@
             </div>
             <div class="close align-self-center my-2" @click="handleClose">Затвори</div>
         </div>
+        <Candy v-if="loading" class="candy rounded"/>
     </div>
 </template>
 
@@ -230,6 +236,20 @@
                     scale: 1.03;
                 }
             }
+        }
+    }
+</style>
+
+<style lang="scss">
+    .candy {
+        .unit {
+            background-color: transparent;
+        }
+        .pole-unit {
+            transform: scale(.7);
+        }
+        p {
+            display: none;
         }
     }
 </style>
