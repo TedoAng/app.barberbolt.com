@@ -200,6 +200,7 @@
         </div>
         <div v-if="selectedDay" class="time mb-2">
             <h5 class="px-2 hello">Час</h5>
+            <h4 v-if="showTimes.length === 0" class="px-2 choose-date off-day rounded text-center mx-2">Не работен ден :)</h4>
             <div ref="refTimes" class="times ms-2" @wheel.prevent="handleWheelTime">
                 <div v-for="time in showTimes" class="hour" :class="{'select-hour': time === selectedTime}" @click="handleSelectTime">
                     {{busyTimes.includes(`${time}:00`)? 'зает' : time}}
@@ -250,6 +251,10 @@
 </template>
 
 <style lang="scss" scoped>
+    .off-day {
+        background-color: #E08D41;
+        padding: 10px;
+    }
     .choose-date{
         font-family: "NotoSerifExtraCondensedBlackItalic", serif;
         font-size: 2rem;
