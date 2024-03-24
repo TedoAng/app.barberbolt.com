@@ -44,6 +44,20 @@ export const registerUser = async (data) => {
     }
 };
 
+export const addUserStore = async (data) => {
+    console.log(data);
+    try {
+        const resp = await axios.patch(`http://public.test/api/set-store`, data);
+        if (resp.status === 200) {
+            console.log(resp);
+            // return resp.data.data.user.id;
+        }
+    } catch (error) {
+        console.log('addUserStore', error);
+        return error;
+    }
+};
+
 export const sendReservation = async (data) => {
     try {
         const resp = await axios.post(`${barberURL}/barber/create`, data, headers);

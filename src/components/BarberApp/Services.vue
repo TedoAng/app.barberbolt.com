@@ -1,6 +1,6 @@
 <script setup>
     import {ref, onMounted, onUnmounted} from 'vue'
-    import { getServices } from '@/services/barber-service'
+    import { getServices, addUserStore } from '@/services/barber-service'
     import { useRouter } from 'vue-router'
     import Svg from '@/assets/svg/index'
     import Candy from '@/components/Candy.vue'
@@ -15,7 +15,7 @@
         description: ''
     });
     const loading = ref(true);
-
+    const storeID = ref(null);
     const handleForwardBtn = () => {
         router.push('/summary');
         putInCart();
@@ -38,6 +38,14 @@
         localStorage.setItem('cart', JSON.stringify({ services: cartServices.value, total: cart.value.total, description: cart.value.description }));
     }
 
+    const handleAddStoreID = () => {
+        const data = {
+            storeID: storeID.value,
+            email: user.value.email
+        }
+        addUserStore(data)
+        .then(res => console.log('done'));
+    }
     onMounted(() => {
         try {
             const userData = JSON.parse(localStorage.getItem('userData'));
@@ -92,9 +100,27 @@
         </div>
     </div>
     <Candy v-if="loading"/>
+    <div v-if="!user?.storeID" class="d-flex flex-column justify-content-center align-items-center position-absolute top-0 start-50 w-100 h-100 bg-primary">
+        <h3>Въведете номер на обект</h3>
+        <input type="text" class="form-control" v-model="storeID">
+        <button class="reserve m-3" @click="handleAddStoreID">Запази</button>
+    </div>
 </template>
 
 <style lang="scss" scoped>
+    .bg-primary {
+        background-color: #525252 !important;
+        max-width: 991px;
+        transform: translateX(-50%);
+        h3 {
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .form-control {
+            width: 40%;
+            min-width: 200px;
+        }
+    }
     .welcome {
         height: 23dvh;
     }
